@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TermiEmu - Modern Web Terminal</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="terminal-container">
+            <div class="terminal-header">
+                <div class="terminal-tabs">
+                    <div class="tab active" data-tab="0">
+                        <span class="tab-title">Terminal</span>
+                        <button class="tab-close">×</button>
+                    </div>
+                    <button class="new-tab-btn">+</button>
+                </div>
+                <div class="terminal-controls">
+                    <button class="control-btn search-btn" title="Search">🔍</button>
+                    <button class="control-btn settings-btn" title="Settings">⚙️</button>
+                </div>
+            </div>
+            <div class="terminal-content">
+                <div id="terminal" class="terminal-instance active"></div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="./main.ts"></script>
+</body>
+</html>
