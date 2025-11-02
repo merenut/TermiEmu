@@ -1,0 +1,4 @@
+# Clippy configuration for TermiEmu
+# See https://doc.rust-lang.org/clippy/lint_configuration.html for all options
+
+cognitive-complexity-threshold = 30
