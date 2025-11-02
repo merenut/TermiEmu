@@ -1,0 +1,36 @@
+#!/bin/sh
+# Pre-commit hook for TermiEmu
+# This hook runs rustfmt and clippy before each commit
+#
+# To enable: Uncomment cargo-husky in Cargo.toml and run `cargo build`
+# To bypass: Use `git commit --no-verify`
+
+set -e
+
+echo "🔍 Running pre-commit checks..."
+
+# Run rustfmt check
+echo "  → Checking code formatting..."
+if ! cargo fmt --all -- --check; then
+    echo ""
+    echo "❌ Code is not formatted correctly."
+    echo "   Run 'cargo fmt' to fix formatting issues."
+    echo ""
+    exit 1
+fi
+echo "  ✅ Format check passed"
+
+# Run clippy
+echo "  → Running clippy..."
+if ! cargo clippy --all-targets --all-features -- -D warnings; then
+    echo ""
+    echo "❌ Clippy found issues."
+    echo "   Fix them manually or run 'cargo clippy --fix' for automatic fixes."
+    echo ""
+    exit 1
+fi
+echo "  ✅ Clippy check passed"
+
+echo ""
+echo "✅ All pre-commit checks passed!"
+echo ""

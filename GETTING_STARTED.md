@@ -581,6 +581,9 @@ rustup component add clippy
 # Run linter
 cargo clippy
 
+# Run with stricter checks (what CI uses)
+cargo clippy --all-targets --all-features -- -D warnings
+
 # Fix automatically fixable issues
 cargo clippy --fix
 ```
@@ -596,6 +599,17 @@ cargo fmt -- --check
 # Apply formatting
 cargo fmt
 ```
+
+### Pre-commit Hooks (Optional)
+
+TermiEmu provides optional pre-commit hooks that automatically check formatting and linting before each commit. This helps catch issues early in your development workflow.
+
+To enable pre-commit hooks:
+1. Uncomment the `cargo-husky` line in `Cargo.toml`
+2. Run `cargo build` to install the hooks
+3. See `.cargo-husky/hooks/README.md` for details
+
+For complete information about code quality standards, see [CODE_QUALITY.md](./CODE_QUALITY.md).
 
 ## Common Issues & Solutions
 

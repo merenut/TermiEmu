@@ -1,14 +1,47 @@
 # rustfmt configuration for TermiEmu
 # See https://rust-lang.github.io/rustfmt/ for all options
+#
+# This configuration uses only stable rustfmt features.
+# For nightly features, see the bottom of this file.
 
+# Rust edition
 edition = "2021"
+
+# Line width and indentation
 max_width = 100
+hard_tabs = false
+tab_spaces = 4
+
+# Import and module organization
+reorder_imports = true
+reorder_modules = true
+
+# Code style preferences
 use_small_heuristics = "Max"
 use_field_init_shorthand = true
 use_try_shorthand = true
 
-# Unstable features - only work with nightly
-# Uncomment when using nightly rust for formatting:
+# Remove trailing whitespace
+remove_nested_parens = true
+
+# Newlines
+newline_style = "Auto"
+
+# Unstable features - only work with nightly rustfmt
+# To use: Uncomment and run with `cargo +nightly fmt`
+#
+# unstable_features = true
+# format_code_in_doc_comments = true
+# normalize_comments = true
+# wrap_comments = true
+# comment_width = 100
+# fn_single_line = false
+# where_single_line = false
+# reorder_impl_items = true
+# empty_item_single_line = true
+# format_strings = true
+# format_macro_matchers = true
+# format_macro_bodies = true
 # indent_style = "Block"
 # imports_granularity = "Crate"
 # group_imports = "StdExternalCrate"
