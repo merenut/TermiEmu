@@ -305,16 +305,12 @@ Example:
 /// # Examples
 ///
 /// ```
-/// use termiemu::terminal::Cell;
-///
-/// let cell = Cell::new('A');
+/// // Example usage of the Cell struct
+/// let cell = Cell { c: 'A' };
 /// assert_eq!(cell.c, 'A');
 /// ```
 pub struct Cell {
     pub c: char,
-    pub fg: Color,
-    pub bg: Color,
-    pub flags: CellFlags,
 }
 ```
 
