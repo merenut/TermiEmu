@@ -44,6 +44,12 @@ The TermiEmu documentation consists of **6,500+ lines** across **7 core document
 - Code examples for all components
 - Development workflow
 
+→ Maintain Code Quality [CODE_QUALITY.md](./CODE_QUALITY.md) (15 min read)
+- Formatting and linting standards
+- Pre-commit hooks setup
+- Code review guidelines
+- Performance best practices
+
 #### **Plan Development Roadmap**
 → Review [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) (60 min read)
 - Executive summary and repository analysis
@@ -290,7 +296,8 @@ The TermiEmu documentation consists of **6,500+ lines** across **7 core document
 1. [README.md](./README.md) - Project context
 2. [ROADMAP_QUICK_REFERENCE.md](./ROADMAP_QUICK_REFERENCE.md) - See what needs doing
 3. [GETTING_STARTED.md](./GETTING_STARTED.md) - Setup and first contribution
-4. [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) - Find a user story to work on
+4. [CODE_QUALITY.md](./CODE_QUALITY.md) - Code standards and tools
+5. [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) - Find a user story to work on
 
 ### Path 5: "I'm Planning the Project"
 1. [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) - Complete roadmap
@@ -309,9 +316,10 @@ The TermiEmu documentation consists of **6,500+ lines** across **7 core document
 | GUI_UX_DESIGN.md | 1,464 | 48K | 45 min | Complete spec |
 | ARCHITECTURE.md | 530 | 45K | 30 min | Technical architecture |
 | GETTING_STARTED.md | 672 | 22K | 20 min | Developer guide |
+| CODE_QUALITY.md | 418 | 8.8K | 15 min | Code standards |
 | **PRODUCTION_ROADMAP.md** | **2,871** | **98K** | **60 min** | **Complete roadmap** |
 | **ROADMAP_QUICK_REFERENCE.md** | **354** | **11K** | **10 min** | **Quick start guide** |
-| **TOTAL** | **6,157** | **234K** | **~3 hours** | **Complete blueprint** |
+| **TOTAL** | **6,575** | **243K** | **~3.2 hours** | **Complete blueprint** |
 
 ### Supplementary Documentation
 | Document | Lines | Purpose |

@@ -14,6 +14,9 @@ categories = ["command-line-utilities"]
 [dependencies]
 
 [dev-dependencies]
+# Optional: Enables pre-commit hooks for automated quality checks
+# Install with: cargo add --dev cargo-husky --features user-hooks
+# cargo-husky = { version = "1", default-features = false, features = ["user-hooks"] }
 
 [[bin]]
 name = "termiemu"

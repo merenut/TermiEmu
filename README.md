@@ -102,7 +102,7 @@ cargo doc --open
 
 Contributions are welcome! Please review the [Design Documents](./GUI_UX_DESIGN.md) and [Production Roadmap](./PRODUCTION_ROADMAP.md) before proposing changes.
 
-For development guidelines, see [Getting Started](./GETTING_STARTED.md).
+For development guidelines, see [Getting Started](./GETTING_STARTED.md) and [Code Quality Standards](./CODE_QUALITY.md).
 
 ## License
 

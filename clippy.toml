@@ -1,4 +1,21 @@
 # Clippy configuration for TermiEmu
 # See https://doc.rust-lang.org/clippy/lint_configuration.html for all options
 
+# Complexity thresholds
+# Parser state machines and terminal emulation logic can be complex
 cognitive-complexity-threshold = 30
+type-complexity-threshold = 500
+
+# Documentation
+# Will be enabled in Phase 1 when API stabilizes
+missing-docs-in-crate-items = false
+
+# Performance
+vec-box-size-threshold = 4096
+
+# Style preferences
+single-char-binding-names-threshold = 4
+
+# Terminal emulator specifics
+# Terminal state management sometimes needs many parameters
+too-many-arguments-threshold = 8
