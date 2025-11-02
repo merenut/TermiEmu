@@ -319,7 +319,7 @@ The TermiEmu documentation consists of **6,500+ lines** across **7 core document
 | CODE_QUALITY.md | 418 | 8.8K | 15 min | Code standards |
 | **PRODUCTION_ROADMAP.md** | **2,871** | **98K** | **60 min** | **Complete roadmap** |
 | **ROADMAP_QUICK_REFERENCE.md** | **354** | **11K** | **10 min** | **Quick start guide** |
-| **TOTAL** | **6,575** | **243K** | **~3.2 hours** | **Complete blueprint** |
+| **TOTAL** | **6,589** | **243K** | **~3.2 hours** | **Complete blueprint** |
 
 ### Supplementary Documentation
 | Document | Lines | Purpose |
