@@ -100,9 +100,14 @@ cargo doc --open
 
 ## Contributing
 
-Contributions are welcome! Please review the [Design Documents](./GUI_UX_DESIGN.md) and [Production Roadmap](./PRODUCTION_ROADMAP.md) before proposing changes.
+Contributions are welcome! We value contributions from developers of all experience levels.
 
-For development guidelines, see [Getting Started](./GETTING_STARTED.md) and [Code Quality Standards](./CODE_QUALITY.md).
+- **[Contributing Guide](./CONTRIBUTING.md)** - Development setup, workflow, and coding standards
+- **[Code of Conduct](./CODE_OF_CONDUCT.md)** - Community guidelines and expectations
+
+For design context, see:
+- [Design Documents](./GUI_UX_DESIGN.md) and [Production Roadmap](./PRODUCTION_ROADMAP.md)
+- [Getting Started](./GETTING_STARTED.md) and [Code Quality Standards](./CODE_QUALITY.md)
 
 ## License
 
