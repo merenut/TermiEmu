@@ -10,6 +10,81 @@ This document provides a phased approach to implementing terminal emulator featu
 - **Nice-to-have**: Competitive differentiators
 - **Future**: Innovation and experimental features
 
+## 2025 Update: Market-Informed Priorities
+
+Based on terminal emulator developments from November 2024 to November 2025, the following insights should inform your implementation:
+
+### Key Learnings from 2025
+
+**1. Technology Stack Matters More Than Ever**
+- **Modern Languages Win**: Rust (Alacritty, WezTerm, Zellij, Rio, Warp), Zig (Ghostty)
+- **Memory safety is non-negotiable**: Choose Rust or Zig over C/C++
+- **Consider:** Rust for ecosystem, Zig for performance + simplicity
+
+**2. GPU Acceleration is Table Stakes**
+- **Must-have, not nice-to-have**: All competitive terminals use GPU
+- **Consider:** WebGPU (Rio) for cross-platform, or Metal/OpenGL/DirectX per-platform (Ghostty approach)
+- **Minimum target**: 60 FPS, but 400-500 FPS is achievable (see Alacritty, Ghostty benchmarks)
+
+**3. Native UI vs. Cross-Platform Toolkit**
+- **Ghostty approach (native per-platform)** = best user experience
+- **Electron/Web (Hyper, Wave)** = slower but easier development
+- **Recommendation**: If resources allow, go native per-platform (SwiftUI, GTK4, Win32)
+
+**4. Multiplexing Should Be Built-In**
+- **Don't rely on tmux/screen**: Users expect native tabs/splits/sessions
+- **Examples**: Kitty sessions (2025), WezTerm multiplexer, Ghostty native splits, Zellij
+- **Recommendation**: Build multiplexing from day one, not as afterthought
+
+**5. AI Integration Strategy**
+- **Cloud AI**: Warp leads with multi-agent, but proprietary and privacy concerns
+- **Opportunity**: Local-first AI using Ollama, llama.cpp, or similar
+- **Don't ignore**: AI is now expected by many users, but make it optional and privacy-respecting
+
+**6. Unicode 16/17 Support**
+- **Alacritty 0.16 (Oct 2025)** was first with Unicode 17
+- **Recommendation**: Plan for latest Unicode from start, don't play catch-up
+
+**7. Graphics Protocols**
+- **Kitty Graphics Protocol** = de facto standard (adopted by Ghostty, WezTerm, Konsole)
+- **Also support**: Sixel, iTerm2 inline (for compatibility)
+- **Recommendation**: Prioritize Kitty protocol, add others for compatibility
+
+**8. Multiple Cursors & Text Sizing**
+- **Kitty 2025 innovations**: Multiple cursors, variable text sizes
+- **Future-proof**: Plan protocol extensibility from start
+
+**9. WASM Plugins (Zellij model)**
+- **Language-agnostic extensibility** better than language-specific plugins
+- **Security**: Sandboxed by default
+- **Recommendation**: If building plugin system, consider WASM
+
+**10. WebGPU for Browser Support (Rio model)**
+- **Optional but powerful**: Run terminal in browser without installation
+- **Use case**: Cloud IDEs, remote development, education
+- **Consideration**: Adds complexity but future-proofs codebase
+
+### Updated Priority Recommendations (2025)
+
+**Highest Priority (Changed from 2024):**
+1. ✅ GPU acceleration (was "high", now "critical")
+2. ✅ Native multiplexing (was "nice-to-have", now "must-have")
+3. ✅ Kitty Graphics Protocol support (was not listed, now "should-have")
+4. ✅ Unicode 16/17 support (was "UTF-8", now specify latest Unicode)
+5. ✅ Platform-native UI where possible (new recommendation)
+
+**Emerging Priorities (New for 2025):**
+1. 🆕 Local-first AI integration (optional but competitive)
+2. 🆕 Session management (save/restore layouts)
+3. 🆕 SSH domain support (WezTerm model)
+4. 🆕 Plugin system (WASM-based preferred)
+5. 🆕 Collaboration features (if targeting teams)
+
+**De-Prioritized (Less Critical in 2025):**
+1. ⬇️ VT100-only support (still needed, but xterm compatibility more important)
+2. ⬇️ Legacy protocol support (focus on modern protocols first)
+3. ⬇️ Software rendering fallback (GPU is everywhere now)
+
 ---
 
 ## Phase 1: Foundation (Must-Have) - Months 1-3
