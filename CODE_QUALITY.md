@@ -123,7 +123,6 @@ Pre-commit hooks automatically run checks before each commit to catch issues ear
 
 1. Add cargo-husky to your development dependencies:
 ```bash
-cargo install cargo-edit
 cargo add --dev cargo-husky --features user-hooks
 ```
 
