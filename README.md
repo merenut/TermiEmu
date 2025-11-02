@@ -14,6 +14,8 @@ TermiEmu combines cutting-edge Rust GUI technology with thoughtful UX design to 
 
 ### Quick Links
 
+- **[Production Roadmap](./PRODUCTION_ROADMAP.md)** - Complete roadmap to v1.0 (55+ user stories) 🗺️
+- **[Quick Reference](./ROADMAP_QUICK_REFERENCE.md)** - TL;DR roadmap summary ⚡
 - **[Design Summary](./DESIGN_SUMMARY.md)** - 10-minute overview of key decisions
 - **[Full GUI/UX Design](./GUI_UX_DESIGN.md)** - Complete design specification (2,900+ lines)
 - **[Architecture](./ARCHITECTURE.md)** - Technical architecture with visual diagrams
