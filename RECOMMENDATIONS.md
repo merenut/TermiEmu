@@ -749,4 +749,4 @@ The terminal emulator market has room for innovation, especially in AI, collabor
 
 ---
 
-**Last Updated:** November 1, 2024
+**Last Updated:** November 2, 2025
