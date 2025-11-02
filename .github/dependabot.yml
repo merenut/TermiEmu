@@ -1,0 +1,53 @@
+# Dependabot configuration for automated dependency updates
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  # Monitor Cargo dependencies
+  - package-ecosystem: "cargo"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    # Automatically create PRs for security updates
+    open-pull-requests-limit: 10
+    # Labels to apply to PRs
+    labels:
+      - "dependencies"
+      - "rust"
+    # Prefix commit messages
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+      include: "scope"
+    # Group minor and patch updates together to reduce PR noise
+    groups:
+      rust-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+    # Allow both direct and indirect dependency updates
+    versioning-strategy: increase
+    # Enable security updates
+    allow:
+      - dependency-type: "all"
+
+  # Monitor GitHub Actions dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
