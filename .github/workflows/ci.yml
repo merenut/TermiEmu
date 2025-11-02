@@ -103,3 +103,54 @@ jobs:
       
       - name: Check if project compiles with MSRV
         run: cargo check --all-features
+
+  # Security audit for vulnerabilities
+  security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Install Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+      
+      - name: Run cargo-audit via rustsec/audit-check
+        uses: rustsec/audit-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          json: true
+          output: audit-report.json
+      
+      - name: Upload audit report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-audit-report
+          path: audit-report.json
+          retention-days: 30
+
+  # Supply chain security and license compliance
+  cargo-deny:
+    name: Cargo Deny
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Install Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+      
+      - name: Run cargo-deny checks
+        uses: EmbarkStudios/cargo-deny-action@v1
+        with:
+          arguments: check advisories licenses bans sources
