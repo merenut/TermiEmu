@@ -7,6 +7,10 @@ on:
     branches: [ "main", "develop" ]
   workflow_dispatch:
 
+# Explicitly limit permissions for security
+permissions:
+  contents: read
+
 env:
   CARGO_TERM_COLOR: always
   RUST_BACKTRACE: 1
