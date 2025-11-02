@@ -315,7 +315,7 @@ The TermiEmu documentation consists of **6,500+ lines** across **7 core document
 | DESIGN_SUMMARY.md | 205 | 7.2K | 10 min | Executive summary |
 | GUI_UX_DESIGN.md | 1,464 | 48K | 45 min | Complete spec |
 | ARCHITECTURE.md | 530 | 45K | 30 min | Technical architecture |
-| GETTING_STARTED.md | 672 | 22K | 20 min | Developer guide |
+| GETTING_STARTED.md | 686 | 22K | 20 min | Developer guide |
 | CODE_QUALITY.md | 418 | 8.8K | 15 min | Code standards |
 | **PRODUCTION_ROADMAP.md** | **2,871** | **98K** | **60 min** | **Complete roadmap** |
 | **ROADMAP_QUICK_REFERENCE.md** | **354** | **11K** | **10 min** | **Quick start guide** |
