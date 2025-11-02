@@ -1,0 +1,14 @@
+# rustfmt configuration for TermiEmu
+# See https://rust-lang.github.io/rustfmt/ for all options
+
+edition = "2021"
+max_width = 100
+use_small_heuristics = "Max"
+use_field_init_shorthand = true
+use_try_shorthand = true
+
+# Unstable features - only work with nightly
+# Uncomment when using nightly rust for formatting:
+# indent_style = "Block"
+# imports_granularity = "Crate"
+# group_imports = "StdExternalCrate"

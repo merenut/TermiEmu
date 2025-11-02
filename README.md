@@ -1,5 +1,8 @@
 # TermiEmu
 
+[![CI](https://github.com/merenut/TermiEmu/actions/workflows/ci.yml/badge.svg)](https://github.com/merenut/TermiEmu/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](LICENSE)
+
 A modern, high-performance terminal emulator built in Rust with a focus on speed, beauty, and exceptional user experience.
 
 ## Design Philosophy
