@@ -12,6 +12,11 @@
 
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
 
+/// Unicode character ranges for width calculation
+const EMOJI_START: u32 = 0x1F300;
+const CJK_START: u32 = 0x4E00;
+const CJK_END: u32 = 0x9FFF;
+
 /// Benchmark string allocation and manipulation
 /// This is a placeholder benchmark until we have actual terminal functionality
 fn string_operations_benchmark(c: &mut Criterion) {
@@ -73,9 +78,9 @@ fn character_operations_benchmark(c: &mut Criterion) {
                     // Simplified width calculation
                     if c.is_ascii() {
                         1
-                    } else if *c as u32 >= 0x1F300 {
+                    } else if *c as u32 >= EMOJI_START {
                         2 // Emoji
-                    } else if *c as u32 >= 0x4E00 && *c as u32 <= 0x9FFF {
+                    } else if *c as u32 >= CJK_START && *c as u32 <= CJK_END {
                         2 // CJK
                     } else {
                         1
