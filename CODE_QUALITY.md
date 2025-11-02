@@ -379,7 +379,6 @@ cargo tree
 # Install useful development tools
 cargo install cargo-watch
 cargo install cargo-expand
-cargo install cargo-edit
 cargo install cargo-outdated
 cargo install cargo-audit
 cargo install cargo-flamegraph
