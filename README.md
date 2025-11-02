@@ -10,14 +10,26 @@ TermiEmu combines cutting-edge Rust GUI technology with thoughtful UX design to 
 
 ## Documentation
 
-- **[Design Summary](./DESIGN_SUMMARY.md)** - Quick overview of design decisions and architecture
-- **[Full GUI/UX Design Document](./GUI_UX_DESIGN.md)** - Comprehensive design specification covering:
-  - Modern terminal UX research (Warp, WezTerm, Ghostty, Alacritty)
-  - Framework selection rationale (Iced vs. egui vs. Slint vs. Dioxus)
-  - Visual design & theming system
-  - UI chrome (tabs, splits, scrollbar, command palette)
-  - Grid interaction & user experience
-  - Implementation roadmap
+📚 **[Documentation Index](./DOCUMENTATION_INDEX.md)** - Complete guide to navigating all documentation
+
+### Quick Links
+
+- **[Design Summary](./DESIGN_SUMMARY.md)** - 10-minute overview of key decisions
+- **[Full GUI/UX Design](./GUI_UX_DESIGN.md)** - Complete design specification (2,900+ lines)
+- **[Architecture](./ARCHITECTURE.md)** - Technical architecture with visual diagrams
+- **[Getting Started](./GETTING_STARTED.md)** - Developer guide with code examples
+
+### What's Covered
+
+The documentation provides a complete blueprint covering:
+- Modern terminal UX research (Warp, WezTerm, Ghostty, Alacritty)
+- Framework selection rationale (Iced vs. egui vs. Slint vs. Dioxus)
+- Visual design & theming system (cosmic-text, TOML themes, hot-reload)
+- UI chrome (tabs, splits, scrollbar, command palette)
+- Grid interaction & user experience (selection, copy/paste, mouse, hyperlinks)
+- System architecture and rendering pipeline
+- 16-week implementation roadmap (6 phases)
+- Complete code examples for getting started
 
 ## Key Features (Planned)
 
