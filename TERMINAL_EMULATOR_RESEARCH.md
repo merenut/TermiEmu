@@ -1,7 +1,7 @@
 # Comprehensive Terminal Emulator Feature Research
 
-**Version:** 1.0  
-**Date:** November 1, 2024  
+**Version:** 2.0  
+**Date:** November 2, 2025  
 **Status:** Complete
 
 ## Executive Summary
@@ -137,6 +137,20 @@ This document provides a comprehensive analysis of features across 14 major mode
 - **Key Strengths:** Tiling, sessions, GNOME integration, Quake mode
 - **Configuration:** dconf/GSettings
 
+### 15. **Wave Terminal**
+- **Platform:** Windows, macOS, Linux
+- **Language:** TypeScript, Go
+- **Rendering:** GPU-accelerated
+- **Key Strengths:** IDE-like interface, AI chat, command blocks, file previews, inline web browser
+- **Configuration:** GUI + config file
+
+### 16. **Zellij**
+- **Platform:** Linux, macOS, Windows, BSD
+- **Language:** Rust
+- **Rendering:** Software (TUI)
+- **Key Strengths:** Modern multiplexer, plugin system, workspace management, native tiling
+- **Configuration:** KDL config file
+
 ## Research Methodology
 
 This research was conducted through:
@@ -146,7 +160,7 @@ This research was conducted through:
 3. **Community Resources**: Reviewed community discussions, blog posts, and tutorials
 4. **Standards Documentation**: Referenced VT100, VT220, xterm, ANSI/ISO standards
 5. **Practical Testing**: Where possible, verified features through hands-on testing
-6. **Version Control**: All information reflects latest stable releases as of November 2024
+6. **Version Control**: All information reflects latest stable releases as of November 2025
 
 ## Key Findings
 
@@ -197,13 +211,13 @@ This research is organized into detailed category documents (see Table of Conten
 - Identify platform-specific capabilities
 
 ### For Researchers
-- Comprehensive baseline for terminal emulator capabilities as of 2024
+- Comprehensive baseline for terminal emulator capabilities as of 2025
 - Historical context through standards evolution
 - Future directions through innovation analysis
 
 ## Maintenance and Updates
 
-This document represents a snapshot as of November 1, 2024. Terminal emulators evolve rapidly:
+This document represents a snapshot as of November 2, 2025. Terminal emulators evolve rapidly:
 
 - **Quarterly Updates Recommended**: New features, protocol extensions
 - **Annual Major Review**: Technology shifts, new terminals

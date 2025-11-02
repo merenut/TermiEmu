@@ -44,6 +44,19 @@ The TermiEmu documentation consists of **2,900+ lines** across **5 documents**, 
 - Code examples for all components
 - Development workflow
 
+#### **Research Terminal Emulator Features**
+→ Review [TERMINAL_EMULATOR_RESEARCH.md](./TERMINAL_EMULATOR_RESEARCH.md) (60 min read)
+- Comprehensive analysis of 16 major terminal emulators
+- Feature comparisons and best practices
+- Protocol standards and specifications
+- 2025 updates and emerging trends
+
+→ Check [CHANGELOG_2025.md](./CHANGELOG_2025.md) (30 min read)
+- What's new from Nov 2024 to Nov 2025
+- New terminal releases (Ghostty 1.0, Wave, Zellij)
+- Major feature updates across all terminals
+- Technology trends and recommendations
+
 ---
 
 ## 📄 Document Details
@@ -254,6 +267,101 @@ The TermiEmu documentation consists of **2,900+ lines** across **5 documents**, 
 
 ---
 
+### 6. TERMINAL_EMULATOR_RESEARCH.md (220 lines)
+**Purpose:** Comprehensive terminal feature research  
+**Audience:** Designers, product managers, implementers  
+**Contents:**
+- Analysis of 16 major terminal emulators
+- Overview of key features and capabilities
+- Links to detailed documentation
+
+**Read if:** You want to understand the competitive landscape
+
+---
+
+### 7. FEATURE_MATRIX.md (550+ lines)
+**Purpose:** Detailed feature comparison table  
+**Audience:** Product managers, implementers  
+**Contents:**
+- Quick reference comparison table
+- 100+ features across all categories
+- Full feature matrix for all 16 terminals
+
+**Read if:** You need to know which terminals support which features
+
+---
+
+### 8. GAP_ANALYSIS.md (750+ lines)
+**Purpose:** Analysis of unique and rare features  
+**Audience:** Designers, innovators, implementers  
+**Contents:**
+- Terminal-by-terminal breakdown of unique features
+- Best-in-class implementations
+- Innovation opportunities
+- 2025 updates with latest features
+
+**Read if:** You want to understand what makes each terminal special
+
+**Key Sections:**
+- Alacritty (Unicode 17, Vi mode, IPC)
+- Kitty (Multiple cursors, sessions, text sizing)
+- WezTerm (SSH domains, Lua scripting)
+- Warp (Multi-agent AI, collaboration)
+- Ghostty (Zig, native UI, performance)
+- Wave (IDE-like, rich media)
+- Zellij (WASM plugins, multiplexing)
+
+---
+
+### 9. CHANGELOG_2025.md (660 lines)
+**Purpose:** Comprehensive 2025 feature updates  
+**Audience:** Everyone  
+**Contents:**
+- Executive summary of 2025 changes
+- New terminals (Ghostty 1.0, Wave, Zellij)
+- Major updates to existing terminals
+- Technology trends and analysis
+- Recommendations for new terminals
+
+**Read if:** You want to know what's new from Nov 2024 to Nov 2025
+
+**Key Updates:**
+- Ghostty 1.0 release (December 2024)
+- Warp 2.0 with multi-agent AI
+- Kitty innovations (multiple cursors, variable text)
+- Alacritty 0.16 (Unicode 17)
+- WezTerm SSH multiplexing
+- Rio WebGPU developments
+- Technology trend analysis
+
+---
+
+### 10. INNOVATION_OPPORTUNITIES.md (900+ lines)
+**Purpose:** Future-focused innovation analysis  
+**Audience:** Product visionaries, innovators  
+**Contents:**
+- Identified weaknesses in current terminals
+- Innovation opportunities
+- Experimental concepts
+- 2025 lessons learned
+
+**Read if:** You want to build the next breakthrough terminal
+
+---
+
+### 11. RECOMMENDATIONS.md (750+ lines)
+**Purpose:** Implementation roadmap and priorities  
+**Audience:** Technical leads, implementers  
+**Contents:**
+- Phased implementation approach
+- 2025 market-informed priorities
+- Technology stack recommendations
+- Priority-ordered feature roadmap
+
+**Read if:** You're planning a new terminal emulator
+
+---
+
 ## 🎯 Common Reading Paths
 
 ### Path 1: "I'm New Here"
@@ -276,6 +384,18 @@ The TermiEmu documentation consists of **2,900+ lines** across **5 documents**, 
 2. [GETTING_STARTED.md](./GETTING_STARTED.md) - Setup and first contribution
 3. [GUI_UX_DESIGN.md](./GUI_UX_DESIGN.md) - Understand implementation roadmap
 
+### Path 5: "I'm Researching Terminal Features"
+1. [CHANGELOG_2025.md](./CHANGELOG_2025.md) - What's new in 2025
+2. [FEATURE_MATRIX.md](./FEATURE_MATRIX.md) - Feature comparison table
+3. [GAP_ANALYSIS.md](./GAP_ANALYSIS.md) - Unique features per terminal
+4. [INNOVATION_OPPORTUNITIES.md](./INNOVATION_OPPORTUNITIES.md) - Future directions
+
+### Path 6: "I'm Planning a New Terminal"
+1. [CHANGELOG_2025.md](./CHANGELOG_2025.md) - Latest developments
+2. [RECOMMENDATIONS.md](./RECOMMENDATIONS.md) - Priority roadmap
+3. [GAP_ANALYSIS.md](./GAP_ANALYSIS.md) - Competitive analysis
+4. [INNOVATION_OPPORTUNITIES.md](./INNOVATION_OPPORTUNITIES.md) - Innovation gaps
+
 ---
 
 ## 📊 Documentation Statistics
@@ -287,7 +407,11 @@ The TermiEmu documentation consists of **2,900+ lines** across **5 documents**, 
 | GUI_UX_DESIGN.md | 1,464 | 48K | 45 min | Complete spec |
 | ARCHITECTURE.md | 529 | 45K | 30 min | Technical architecture |
 | GETTING_STARTED.md | 394 | 16K | 20 min | Developer guide |
-| **TOTAL** | **2,638** | **118K** | **~2 hours** | **Complete blueprint** |
+| TERMINAL_EMULATOR_RESEARCH.md | 220 | 15K | 15 min | Overview |
+| FEATURE_MATRIX.md | 550+ | 40K | 30 min | Feature comparison |
+| GAP_ANALYSIS.md | 750+ | 60K | 45 min | Unique features |
+| CHANGELOG_2025.md | 660 | 60K | 30 min | 2025 updates |
+| **TOTAL** | **5,200+** | **330K+** | **~4 hours** | **Complete blueprint + research** |
 
 ---
 

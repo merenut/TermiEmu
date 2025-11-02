@@ -546,5 +546,5 @@ ESC[?2026l  End synchronized update
 
 ---
 
-**Last Updated:** November 1, 2024  
+**Last Updated:** November 2, 2025  
 **Maintained by:** TermiEmu Research Project

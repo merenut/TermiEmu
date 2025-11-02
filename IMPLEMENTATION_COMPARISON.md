@@ -894,4 +894,4 @@ The "best" approach depends on priorities: performance, features, flexibility, e
 
 ---
 
-**Last Updated:** November 1, 2024
+**Last Updated:** November 2, 2025

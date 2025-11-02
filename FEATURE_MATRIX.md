@@ -15,13 +15,15 @@ Legend:
 | Terminal | Platform | GPU | Config | Scripting | Multiplexing | Graphics | AI |
 |----------|----------|-----|--------|-----------|--------------|----------|---|
 | Alacritty | Win/Mac/Linux/BSD | ✅ OpenGL | TOML | ❌ | ❌ | ❌ | ❌ |
-| Kitty | Mac/Linux/BSD | ✅ OpenGL | Custom | ⚡ Python | ✅ | ⚡ Protocol | ❌ |
-| WezTerm | Win/Mac/Linux/BSD | ✅ | Lua | ⚡ Lua | ⚡ SSH | ✅ | ❌ |
-| iTerm2 | macOS | ✅ Metal | GUI/plist | ✅ Scripts | 🔶 | ⚡ Inline | ⚡ ChatGPT |
+| Kitty | Mac/Linux/BSD | ✅ OpenGL | Custom | ⚡ Python | ✅ Native | ⚡ Protocol | ❌ |
+| WezTerm | Win/Mac/Linux/BSD | ✅ Vulkan/GL | Lua | ⚡ Lua | ⚡ SSH+Native | ✅ | ❌ |
+| iTerm2 | macOS | ✅ Metal | GUI/plist | ⚡ Python+Scripts | 🔶 | ⚡ Inline | ⚡ ChatGPT |
 | Windows Terminal | Windows | ✅ DirectX | JSON | ❌ | 🔶 | 🔶 | ❌ |
-| Warp | Mac/Linux | ✅ | TOML/GUI | 🔶 | 🔶 | 🔶 | ⚡ Agent |
-| Rio | Win/Mac/Linux/Web | ⚡ WebGPU | TOML | ❌ | 🔶 | ✅ Sixel | ❌ |
-| Ghostty | Mac/Linux | ✅ Metal/GL | Custom | ❌ | 🔶 | ✅ Kitty | ❌ |
+| Warp | Win/Mac/Linux | ✅ | TOML/GUI | 🔶 | 🔶 | 🔶 | ⚡⚡ Multi-Agent |
+| Rio | Win/Mac/Linux/Web | ⚡ WebGPU | TOML | ❌ | 🔶 Splits | ✅ Sixel/iTerm2 | ❌ |
+| Ghostty | Mac/Linux/(Win) | ✅ Metal/GL | Custom | ✅ API | ✅ Native | ✅ Kitty | ❌ |
+| Wave | Win/Mac/Linux | ✅ | Config | ❌ | 🔶 | ⚡ Rich Media | ⚡ Chat |
+| Zellij | Win/Mac/Linux/BSD | ❌ TUI | KDL | ⚡ WASM | ⚡⚡ Native | ❌ | ❌ |
 | Hyper | Win/Mac/Linux | 🔶 Web | JavaScript | ⚡ JS | 🔶 | 🔶 | ❌ |
 | Konsole | Linux/BSD | ❌ Qt | KConfig | 📦 | ✅ Splits | 🔶 | ❌ |
 | GNOME Terminal | Linux | 🔶 GTK4 | dconf | ❌ | 🔶 | ❌ | ❌ |
@@ -33,4 +35,4 @@ Legend:
 
 [Full detailed matrix content showing all 100+ features across all categories...]
 
-**Last Updated:** November 1, 2024
+**Last Updated:** November 2, 2025

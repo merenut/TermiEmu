@@ -10,40 +10,55 @@ This document identifies areas where current terminal emulators are inadequate o
 
 ## Part 1: Identified Weaknesses in Current Terminals
 
-### 1. AI Integration is Primitive or Proprietary
+### 1. AI Integration Has Evolved but Gaps Remain (Updated 2025)
 
-**Current State:**
-- Warp: Advanced AI, but closed-source and cloud-dependent
+**Current State (2025):**
+- Warp 2.0: Advanced multi-agent AI (Agentic Development Environment), but closed-source
 - iTerm2: ChatGPT integration, macOS-only
-- Others: No AI features
+- Wave: AI chat integration, cross-platform
+- Others: Still no AI features
 
-**Weaknesses:**
-- Privacy concerns (cloud AI)
-- Platform lock-in
-- No local AI options
-- Generic suggestions (not context-aware)
-- No learning from user behavior
+**Progress Made:**
+- Multiple AI providers (ChatGPT, Claude, Perplexity)
+- Context-aware suggestions
+- Code generation and debugging
+- Log summarization
+- Voice command support (Warp)
 
-**Opportunity:** Local-first, privacy-respecting, context-aware AI
+**Remaining Weaknesses:**
+- Privacy concerns (most cloud-based AI)
+- Platform lock-in (Warp proprietary)
+- Limited local AI options
+- AI still reactive, not truly proactive
+- No learning from individual user patterns
+- Multi-agent systems only in Warp (closed-source)
+
+**Opportunity:** Open-source, local-first, privacy-respecting, truly context-aware AI with on-device learning
 
 ---
 
-### 2. Collaboration Features are Non-Existent
+### 2. Collaboration Features Emerging (Updated 2025)
 
-**Current State:**
-- Warp: Team features, but closed-source
-- tmux/screen: Sharing possible but clunky
-- SSH: Multiple users awkward
-- Others: No collaboration
+**Current State (2025):**
+- Warp: Session sharing, pair programming, Warp Drive (team features)
+- Zellij: Multi-user session support, shared workspaces
+- tmux/screen: Still available but clunky
+- Others: Still no collaboration
 
-**Weaknesses:**
-- No built-in pair programming
-- No session sharing
-- No command library sharing
-- No real-time collaboration
-- No code review in terminal
+**Progress Made:**
+- Direct teammate invitations (Warp)
+- Session sharing capabilities
+- Shared command repositories (Warp Drive, Notebooks)
+- Collaborative debugging possible
 
-**Opportunity:** Built-in collaboration infrastructure
+**Remaining Weaknesses:**
+- Best features locked in proprietary tools (Warp)
+- No open-source collaborative terminal with full features
+- No built-in video/audio for remote pairing
+- No real-time code review in terminal
+- No session recording/playback for async collaboration
+
+**Opportunity:** Open-source collaborative terminal with video/audio, async session replay, and code review
 
 ---
 
@@ -965,8 +980,79 @@ The next breakthrough terminal will combine:
 - **AI** of Warp (but open and local)
 - **Innovation** beyond current imagination
 
-Build the terminal of 2030, not 2024.
+Build the terminal of 2030, not 2025.
 
 ---
 
-**Last Updated:** November 1, 2024
+## 2025 Emerging Trends & Lessons Learned
+
+### What 2025 Taught Us
+
+**1. Multi-Agent AI is Real (Warp 2.0)**
+- Multiple AI agents can work simultaneously
+- Human-in-the-loop orchestration works
+- Context-awareness is crucial (command history, codebase)
+- Voice commands are viable
+- BUT: Closed-source limits adoption
+
+**2. WebGPU Changes the Game (Rio)**
+- Browser-based terminals with full features are possible
+- Cross-platform rendering becomes easier
+- Future-proof graphics stack
+- Web and desktop can share same codebase
+
+**3. Modern Languages Enable Innovation**
+- Zig (Ghostty): Memory safety + C performance
+- Rust (Alacritty, WezTerm, Zellij, Rio, Warp): Safe concurrency
+- Modern tooling attracts contributors
+
+**4. Native UI Matters (Ghostty)**
+- Platform-native look/feel improves adoption
+- SwiftUI (macOS), GTK4 (Linux) integration possible
+- Users want terminals that feel like system apps
+
+**5. Multiplexing Goes Native**
+- Kitty sessions, WezTerm multiplexer, Ghostty splits, Zellij
+- tmux/screen alternatives emerging
+- Users want built-in, not separate tools
+
+**6. Variable Text Sizes Are Coming (Kitty 2025)**
+- Headlines, superscripts in terminal
+- Rich CLI output becoming expected
+- Backwards compatibility maintained
+
+**7. Multiple Cursors Work in Terminals (Kitty 2025)**
+- GUI editor features migrating to terminal
+- Protocol standardization happening
+- Opens new interaction models
+
+**8. WASM Plugins Are Viable (Zellij)**
+- Language-agnostic extensibility
+- Sandboxed, safe execution
+- Better than language-specific plugins
+
+**9. Unicode 16/17 Support is Essential**
+- Alacritty, Kitty lead adoption
+- Global accessibility improves
+- Emoji and symbols are communication tools
+
+**10. IDE-Terminal Convergence (Wave)**
+- Command blocks vs. scrollback
+- Inline media (images, video, markdown)
+- Web browser in terminal
+- Lower barriers to entry
+
+### Still Missing (Opportunities for 2026+)
+
+1. **Truly Local AI**: All AI still cloud-dependent or proprietary
+2. **Open-Source Multi-Agent Systems**: Warp 2.0 is closed
+3. **Screen Reader Excellence**: Still second-class in most terminals
+4. **Async Collaboration**: No session recording/playback for async work
+5. **Terminal-Native Debugging**: Visual debuggers still separate
+6. **Protocol Consolidation**: Too many image protocols (Kitty, iTerm2, Sixel)
+7. **Cross-Terminal Standards**: Each terminal innovates differently
+8. **Mobile-First Terminal**: Tablets/phones still afterthought
+
+---
+
+**Last Updated:** November 2, 2025

@@ -11,23 +11,43 @@ This document analyzes features that are implemented by only one or a few termin
 ### Alacritty
 
 #### Unique Features
-1. **Unicode 17 Support** (v0.16+)
-   - Among the first to support latest Unicode standard
+1. **Unicode 17 Support** (v0.16, October 2025)
+   - First terminal to support Unicode 17 standard
    - Full emoji and character support
+   - Latest character definitions and symbols
 
 2. **Pure OpenGL Rendering**
    - No fallback to software rendering by default
    - Extremely optimized shader pipeline
+   - Enhanced stability with GPU context resets
 
-3. **Vi Mode Navigation**
+3. **Vi Mode Navigation** (Enhanced 2025)
    - Built-in Vi-style keyboard navigation
+   - Extended Vi motions: `*`, `#`, `{`, `}`
+   - Vi Y keybind (yank to end of line)
    - Regex hints for quick selection
    - No external tools required
+
+4. **IPC Configuration Retrieval** (v0.16, 2025)
+   - Fetch running configuration via `alacritty msg get-config`
+   - Runtime configuration inspection
+   - Better debugging and scripting support
+
+5. **Touch Zoom Sequences** (v0.16, 2025)
+   - Multi-touch zoom for touchpad users
+   - Modern input device support
+   - Enhanced accessibility
+
+6. **System-Wide Config Fallback** (v0.16, 2025)
+   - Reads `/etc/alacritty/alacritty.toml` by default
+   - Better multi-user system support
+   - Centralized configuration management
 
 #### Why These Stand Out
 - Alacritty's minimalist approach means unique features are rare
 - What it does, it does better than anyone (performance)
 - Feature gaps are intentional (delegates to window managers, tmux)
+- 2025 updates maintain focus: performance + essential features only
 
 ---
 
@@ -62,10 +82,49 @@ This document analyzes features that are implemented by only one or a few termin
    - Launch multiple windows/tabs automatically
    - OS-level session management
 
+5. **Multiple Cursors** (2025) ⚡
+   - **Originality:** First terminal with native multiple cursor protocol
+   - **Use Cases:** Simultaneous edits at multiple locations
+   - **Benefits:** GUI editor features in terminal
+   - **Implementation:** New protocol specification
+
+6. **Session Management** (2025)
+   - Create and switch between sessions with keypress
+   - Save current tab/window arrangements
+   - Persistent session files
+   - Workflow streamlining for multi-project developers
+
+7. **Scrollbar with Scrollback** (2025)
+   - Mouse-accessible scrollbar for history navigation
+   - Extensively configurable
+   - Visual indicator for large terminal outputs
+
+8. **Floating Quake-Style Terminal** (2025)
+   - Translucent terminal window summoned with keypress
+   - Instant access without disrupting workspace
+   - True "drop-down" terminal experience
+
+9. **Text Sizing Protocol** (2025) ⚡
+   - **Originality:** First terminal to support variable text sizes
+   - Render text in multiple sizes (headlines, superscripts, etc.)
+   - Backwards-compatible implementation
+   - Better presentation for CLI tools, dashboards, documentation
+
+10. **Variable Fonts & COLRv1 Support** (2025)
+    - OpenType Variable fonts with precise weight/spacing control
+    - COLRv1 font support (Linux) for rich emoji rendering
+    - Improved box-drawing character performance
+
+11. **Cursor Trails** (2025)
+    - Animated visual cursor tracking
+    - Helpful for long-distance cursor jumps
+    - Beneficial in multiplexer/multi-pane workflows
+
 #### Why These Stand Out
-- Graphics protocol is industry-leading
+- Graphics protocol remains industry-leading
 - Kittens provide integrated workflow tools others require external programs for
 - Extensibility without plugin system (Python scripting + kittens)
+- 2025 innovations in multiple cursors and text sizing set new standards
 
 ---
 
@@ -73,37 +132,63 @@ This document analyzes features that are implemented by only one or a few termin
 
 #### Unique/Best-in-Class Features
 
-1. **SSH Domains** ⚡
+1. **SSH Domains** (Enhanced 2025) ⚡
    - **Originality:** Built-in SSH multiplexing
    - **Capabilities:**
      - Auto-populate from `~/.ssh/config`
-     - Mux server on remote hosts
+     - Automatic SSH domain creation from config
+     - Mux server on remote hosts (WezTerm daemon)
      - Seamless local/remote window management
+     - Native tab and pane management for remote sessions
+     - Mouse, scrollback, clipboard integration on remote
+     - `wezterm connect SSHMUX:hostname` for multiplexed SSH
    - **Competition:** iTerm2 has similar, but WezTerm's Lua integration is deeper
+   - **2025:** Rich remote session management with full local feature parity
 
-2. **Full Lua Scripting** ⚡
+2. **Full Lua Scripting** (Enhanced 2025) ⚡
    - **Lua 5.4** embedded
    - **Everything configurable:**
      - Dynamic color schemes
      - Custom key bindings with logic
-     - Status bar widgets
+     - Status bar widgets (powerline-style)
      - Session automation
      - Event hooks
-   - **Why Better:** More powerful than iTerm2 scripts, more integrated than Hyper plugins
+     - Dynamic workspace bootstrapping
+     - Auto-launch multiple workspaces/splits on startup
+     - Context-aware keybindings (detect Neovim, etc.)
+     - Fuzzy workspace selectors
+   - **Hot-reloading:** Changes take effect immediately
+   - **Why Better:** Most programmable terminal configuration
+   - **2025:** Enhanced automation patterns for local and remote workflows
 
 3. **Split Lua Config Files**
    - Modular configuration
    - `require()` for organizing complex configs
 
-4. **Tab Bar Customization**
+4. **Tab Bar Customization** (2025)
    - Scriptable tab bar
    - Custom rendering
    - Dynamic information display
+   - Status bar integration
+
+5. **Devcontainer Integration** (2025)
+   - Dynamic devcontainer discovery
+   - Automatic SSH domain definitions
+   - Container-based development workflows
+   - Seamless container multiplexing
+
+6. **Native Multiplexing** (2025)
+   - Persistent local sessions without tmux
+   - Built-in multiplexer (no separate tool needed)
+   - Remote and local session management unified
+   - Domain configuration for flexible workflows
 
 #### Why These Stand Out
-- Only terminal with full Lua configuration
+- Only terminal with full Lua configuration (most programmable)
 - SSH domains unique among cross-platform terminals
 - Configuration flexibility unmatched
+- 2025 updates make it one-stop terminal+multiplexer for local and remote
+- Best for power users who want total control
 
 ---
 
@@ -126,14 +211,19 @@ This document analyzes features that are implemented by only one or a few termin
    - **Still Best:** Most mature implementation
    - **Adopted:** Now supported by Kitty, WezTerm, Ghostty
 
-3. **AI Integration (v3.5+)**
+3. **AI Integration** (v3.5+, Enhanced 2025)
    - **ChatGPT Integration**
      - Ask AI for command help (Cmd+Y)
-     - Code explanation
+     - Code explanation and conversion
      - Regex generation
+     - Interactive developer assistance
    - **Codecierge:**
      - Step-by-step coding assistant
-   - **Unique to iTerm2**
+     - Contextual help and automation
+   - **Password Manager Integration** (2025)
+     - 1Password deep integration
+     - Enhanced clipboard sync
+   - **Unique to iTerm2 on macOS**
 
 4. **Password Manager Integration**
    - 1Password integration
@@ -166,11 +256,34 @@ This document analyzes features that are implemented by only one or a few termin
    - Custom rules
    - Action integration
 
+9. **Metal GPU Acceleration** (Optimized 2025)
+   - Full Metal API support since v3.2
+   - Apple Silicon (M1/M2/M3) optimization
+   - Blazing fast screen updates
+   - Smooth scrolling with GPU offloading
+   - Better performance than native Terminal.app
+
+10. **Python Scripting API** (2025 Enhanced)
+    - Robust Python interface for automation
+    - Control panes, tabs, sessions
+    - Custom workflow integration
+    - Broadcast input automation
+    - Session setup automation
+    - External tool integration
+    - CI/CD pipeline integration
+
+11. **Improved Pane Navigation** (2025)
+    - Enhanced keyboard shortcuts
+    - Instant search/filter
+    - Better syntax highlighting
+    - Adaptive light/dark mode support
+
 #### Why These Stand Out
-- macOS-only allows deep system integration
-- AI features most advanced in any terminal
+- macOS-only allows deepest system integration
+- AI features among most advanced in any terminal
 - Shell integration model copied by others
 - Mature feature set (20+ years development)
+- 2025 Metal optimizations leverage Apple Silicon fully
 
 ---
 
@@ -178,37 +291,48 @@ This document analyzes features that are implemented by only one or a few termin
 
 #### Unique/Best-in-Class Features
 
-1. **DirectWrite + DirectX Rendering** ⚡
+1. **DirectWrite + DirectX Rendering** (Enhanced 2025) ⚡
    - **Windows Native:** Best Windows performance
    - **GPU Acceleration:** DirectX 11/12
    - **ClearType:** Best font rendering on Windows
+   - **Configurable antialiasing:** grayscale, cleartype, aliased modes
+   - **Per-profile GPU settings:** Fine-tune performance vs. quality
 
-2. **Multiple Shell Profiles**
+2. **Multiple Shell Profiles** (Enhanced 2025)
    - PowerShell
    - CMD
-   - WSL (all distros)
+   - WSL (all distros with GPU acceleration)
+   - WSL GPU support (CUDA, DirectML for ML/compute)
    - Azure Cloud Shell
-   - Seamless switching
+   - Git Bash
+   - Seamless switching with per-profile customization
 
 3. **Acrylic Effects** (Windows-specific)
    - Native Fluent Design
    - System-integrated transparency
    - Desktop background blur
 
-4. **Settings UI + JSON**
-   - GUI for common settings
+4. **Settings UI + JSON** (Enhanced 2025)
+   - Expanded graphical Settings UI
    - JSON for power users
-   - Best of both worlds
+   - More options exposed in GUI (experimental features)
+   - Best of both worlds with improved discoverability
 
 5. **Quake Mode**
    - Global hotkey dropdown
    - Always available
    - Windows-integrated
 
+6. **Multi-Tab, Multi-Pane Performance** (2025)
+   - DirectX acceleration across all tabs/panes
+   - Efficient rendering for multiple shells
+   - Low resource overhead
+
 #### Why These Stand Out
 - Best Windows integration by far
-- Only terminal optimized for Windows ecosystem
-- DirectX rendering unique to Windows
+- Only terminal fully optimized for Windows ecosystem including WSL
+- DirectX rendering unique to Windows with excellent performance
+- 2025 improvements strengthen Windows-native advantage
 
 ---
 
@@ -216,15 +340,24 @@ This document analyzes features that are implemented by only one or a few termin
 
 #### Unique/Best-in-Class Features
 
-1. **AI Agent Mode** ⚡
+1. **Agentic Development Environment (Warp 2.0, 2025)** ⚡
    - **Most Advanced AI:** 
+     - Multiple AI agents running simultaneously
      - Natural language to command
-     - Context-aware suggestions
+     - Context-aware suggestions (command history, codebase, active shell)
      - Multi-step workflows
+     - Voice command support
    - **Active AI:**
      - Automatic error detection
      - Fix suggestions
      - Proactive help
+     - Code generation and debugging
+     - Log summarization
+   - **AI Provider Choice:**
+     - ChatGPT (OpenAI) integration
+     - Claude (Anthropic) support
+     - Perplexity integration
+     - Multi-provider selection
 
 2. **Blocks System** ⚡
    - **Unique Paradigm:**
@@ -236,12 +369,17 @@ This document analyzes features that are implemented by only one or a few termin
      - Team collaboration
      - Command organization
 
-3. **Warp Drive** ⚡
+3. **Warp Drive & Collaboration** (2025 Enhanced) ⚡
    - **Team Features:**
      - Shared command repository
      - Team workflows
      - Synchronized settings
-   - **Unique:** Only collaborative terminal
+     - Session sharing and pair programming
+     - Direct teammate invitations
+     - Collaborative debugging
+     - Shared Notebooks
+   - **Unique:** Most advanced collaborative terminal
+   - **Cross-Platform:** Now available on Windows, Linux, macOS
 
 4. **IDE-like Input**
    - Multi-line editing
@@ -253,11 +391,18 @@ This document analyzes features that are implemented by only one or a few termin
    - Actions, commands, settings
    - Keyboard-driven
 
+6. **Human-in-the-Loop Agent Management** (2025)
+   - Orchestrate multiple AI agents
+   - User controls agent workflows
+   - Ideal for complex coding and infrastructure tasks
+   - Native agent UI (no external windows)
+
 #### Why These Stand Out
-- Only terminal with true AI agent
-- Collaboration features unique
+- Only terminal with true multi-agent AI system (Warp 2.0)
+- Collaboration features most advanced in any terminal
 - Rethinking terminal paradigm (blocks)
 - IDE-like input unprecedented
+- 2025 updates position Warp as agentic workspace, not just terminal
 
 ---
 
@@ -276,54 +421,199 @@ This document analyzes features that are implemented by only one or a few termin
    - **No installation**
    - **Unique capability**
 
-3. **Sugarloaf Renderer**
-   - Custom rendering engine
-   - DirectX 11/12, Metal, Vulkan, GLES3, WebGPU
-   - Maximum compatibility
+3. **Sugarloaf Renderer** (Enhanced 2025)
+   - Custom rendering engine optimized for WebGPU
+   - Multi-backend support: DirectX 11/12, Metal, Vulkan, GLES3, WebGPU
+   - HTML5 Canvas via WebGPU/WebGL for browser
+   - Maximum compatibility across platforms
 
 4. **RetroArch CRT Shaders**
    - Built-in shader support
    - Authentic retro look
    - Customizable effects
 
+5. **True 24-bit Color** (2025)
+   - Up to 16 million colors
+   - Accurate UI themes
+   - Enhanced code visualization
+
+6. **Sixel and iTerm2 Image Protocols** (2025)
+   - Graphics directly in terminal
+   - Multiple protocol support
+   - Rich media rendering
+
+7. **Split Panes and Multiplexing** (2025)
+   - Split screen support
+   - Multiple terminal panes
+   - Keyboard-centric navigation
+   - New tabs and split management
+
+8. **Font Ligatures** (2025)
+   - Enhanced readability for code
+   - Programming font support
+   - Better developer experience
+
+9. **Performance Improvements** (Mid-2025)
+   - Rio 0.3.0 architecture upgrades
+   - Optimized rendering pipeline
+   - Better browser and desktop performance
+
 #### Why These Stand Out
 - Only terminal running in browser with full features
-- WebGPU is cutting-edge technology
-- Most portable (runs anywhere WebGPU does)
+- WebGPU represents cutting-edge graphics technology
+- Most portable (runs anywhere WebGPU is supported)
+- 2025 updates bridge desktop and web seamlessly
 
 ---
 
-### Ghostty
+### Ghostty (v1.0 - December 2024)
 
 #### Unique/Best-in-Class Features
 
 1. **Zig Implementation** ⚡
-   - **Only Zig Terminal**
+   - **Only Zig Terminal** (created by Mitchell Hashimoto)
    - **Benefits:**
      - Memory safety without GC
-     - Performance close to C
+     - Performance close to C (480-500 FPS, comparable to Alacritty/Kitty)
      - Modern language features
+     - Text rendering: ~73ms (vs Alacritty 66ms, Kitty 103ms)
+   - **Open Source:** MIT license
 
-2. **Most Comprehensive xterm Compatibility** ⚡
+2. **Most Comprehensive xterm Compatibility** (2024/2025) ⚡
    - **Wider sequence support** than even xterm
-   - **Modern + legacy**
+   - **Modern + legacy** escape sequences
    - **Best compatibility** with old software
+   - Extensive xterm escape sequence support
 
-3. **Native UI per Platform**
-   - **macOS:** Pure SwiftUI
-   - **Linux:** GTK4 + libadwaita
-   - **Most Native:** Looks/feels like system app
+3. **Native UI per Platform** ⚡
+   - **macOS:** Native look and feel
+   - **Linux:** Native integration
+   - **Windows:** Planned (future support)
+   - **Most Native:** Looks/feels like system app on each OS
+   - True platform-native tabs, splits, and panels
 
 4. **libghostty - Embeddable Library**
    - C-compatible library
    - Embed Ghostty in other apps
    - Reusable terminal core
+   - Open developer API for automation
+
+5. **Rich Protocol Support** (v1.0, 2024)
+   - Kitty Graphics Protocol
+   - Kitty Keyboard Protocol
+   - Styled underlines
+   - Hyperlinks
+   - Rich notifications
+   - Light/dark mode integration
+
+6. **Customization & Themes** (v1.0)
+   - Zero-configuration defaults
+   - Easy customization via config file
+   - Fonts, colors, opacity, keybindings
+   - Modern terminal specifications
+
+7. **Performance Focus** (Benchmarked 2024/2025)
+   - GPU acceleration (Metal on macOS, OpenGL on Linux)
+   - Rivals Alacritty in speed benchmarks
+   - Near-instant text updates
+   - Responsive interactions
+   - High frame rates (480-500 FPS)
 
 #### Why These Stand Out
 - Zig brings modern safety to systems programming
-- Platform-native UI unprecedented
+- Platform-native UI unprecedented among cross-platform terminals
 - xterm compatibility best-in-class
 - Library approach enables embedding
+- v1.0 release (Dec 2024) positions it as serious Alacritty/Kitty competitor
+- Mitchell Hashimoto's reputation (Vagrant, Terraform) brings credibility
+- Fastest-growing modern terminal in 2025
+
+---
+
+### Wave Terminal (2025)
+
+#### Unique/Best-in-Class Features
+
+1. **Command Blocks with Rich Output** ⚡
+   - **Unique Paradigm:**
+     - Commands isolated as interactive blocks
+     - Monitor individual command execution
+     - Rich output rendering
+   - **Benefits:**
+     - Better command organization
+     - Visual workflow management
+
+2. **Integrated AI Chat** ⚡
+   - **Built-in AI assistant**
+   - Context-aware help
+   - Command generation
+   - Inline documentation lookup
+
+3. **File Previews & Media Support** ⚡
+   - **Inline file previews:**
+     - Images (inline rendering)
+     - Markdown (rendered view)
+     - Video playback
+   - **Web browser integration:**
+     - Inline web pages
+     - Documentation viewing
+   - **Unique:** Most comprehensive media support
+
+4. **IDE-like Interface**
+   - Graphical widgets
+   - Visual command palette
+   - Modern UI paradigm
+   - Approachable for newer users
+
+5. **Cross-Platform Packages**
+   - Snap, DEB, RPM, AppImage
+   - Consistent experience across Linux, macOS, Windows
+
+#### Why These Stand Out
+- Bridges gap between terminal and IDE
+- Most media-rich terminal experience
+- Lowers barrier to entry for command-line tools
+- Unique command block paradigm
+
+---
+
+### Zellij (2025)
+
+#### Unique/Best-in-Class Features
+
+1. **Modern Multiplexer Architecture** ⚡
+   - **Rust-based multiplexer**
+   - Native tiling and layouts
+   - Session persistence without tmux/screen
+   - **Best:** Modern alternative to tmux
+
+2. **Plugin System** ⚡
+   - **Extensible via WebAssembly (WASM)**
+   - Language-agnostic plugin development
+   - Native performance
+   - Sandboxed execution
+   - **Unique:** WASM-based plugin architecture
+
+3. **Floating Panes**
+   - Windows can float above terminal
+   - Flexible workspace management
+   - Context-switching efficiency
+
+4. **Built-in Layouts**
+   - Pre-configured workspace layouts
+   - Project-specific arrangements
+   - One-command workspace setup
+
+5. **Collaborative Workflows**
+   - Multi-user session support
+   - Shared workspaces
+   - Team-friendly multiplexing
+
+#### Why These Stand Out
+- Best modern tmux replacement
+- WASM plugin system is cutting-edge
+- Solves tmux's complexity with better UX
+- Rust performance with extensibility
 
 ---
 
@@ -725,4 +1015,4 @@ This document analyzes features that are implemented by only one or a few termin
 
 ---
 
-**Last Updated:** November 1, 2024
+**Last Updated:** November 2, 2025
