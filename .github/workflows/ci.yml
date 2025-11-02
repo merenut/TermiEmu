@@ -121,15 +121,12 @@ jobs:
         with:
           toolchain: stable
       
-      - name: Install cargo-audit
-        run: cargo install cargo-audit --locked
-      
-      - name: Run cargo-audit
-        run: cargo audit
-      
-      - name: Run cargo-audit (JSON output for analysis)
-        run: cargo audit --json > audit-report.json || true
-        continue-on-error: true
+      - name: Run cargo-audit via rustsec/audit-check
+        uses: rustsec/audit-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          json: true
+          output: audit-report.json
       
       - name: Upload audit report
         uses: actions/upload-artifact@v4
