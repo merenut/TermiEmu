@@ -51,12 +51,56 @@ The documentation provides a complete blueprint covering:
 
 ## Status
 
-🚧 **In Design Phase** - Currently developing comprehensive GUI/UX specifications. Implementation will begin once design is validated.
+🚧 **Phase 0 (Pre-Alpha) - Foundation** - Project structure initialized. Beginning implementation of core terminal emulator features.
+
+## Building from Source
+
+### Prerequisites
+
+- Rust 1.70.0 or later (Install from [rustup.rs](https://rustup.rs/))
+
+### Build Instructions
+
+```bash
+# Clone the repository
+git clone https://github.com/merenut/TermiEmu.git
+cd TermiEmu
+
+# Build the project
+cargo build
+
+# Run the project
+cargo run
+
+# Run tests
+cargo test
+
+# Build optimized release version
+cargo build --release
+```
+
+### Development Commands
+
+```bash
+# Check code without building
+cargo check
+
+# Format code
+cargo fmt
+
+# Run linter
+cargo clippy
+
+# Build documentation
+cargo doc --open
+```
 
 ## Contributing
 
-Design feedback and contributions are welcome! Please review the [Design Documents](./GUI_UX_DESIGN.md) before proposing changes.
+Contributions are welcome! Please review the [Design Documents](./GUI_UX_DESIGN.md) and [Production Roadmap](./PRODUCTION_ROADMAP.md) before proposing changes.
+
+For development guidelines, see [Getting Started](./GETTING_STARTED.md).
 
 ## License
 
-TBD
+MIT OR Apache-2.0

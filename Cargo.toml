@@ -1,0 +1,25 @@
+[package]
+name = "termiemu"
+version = "0.1.0"
+authors = ["TermiEmu Contributors"]
+edition = "2024"
+description = "A modern, high-performance terminal emulator built in Rust"
+repository = "https://github.com/merenut/TermiEmu"
+readme = "README.md"
+license = "MIT OR Apache-2.0"
+keywords = ["terminal", "emulator", "tui", "pty"]
+categories = ["command-line-utilities"]
+
+[dependencies]
+
+[dev-dependencies]
+
+[[bin]]
+name = "termiemu"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
