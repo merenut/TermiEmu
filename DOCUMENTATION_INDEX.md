@@ -4,7 +4,7 @@ Welcome to the TermiEmu documentation! This index helps you find the information
 
 ## 📚 Documentation Overview
 
-The TermiEmu documentation consists of **2,900+ lines** across **5 documents**, providing a complete blueprint for building a modern, high-performance terminal emulator in Rust.
+The TermiEmu documentation consists of **6,500+ lines** across **7 core documents** plus supplementary materials, providing a complete blueprint for building a modern, high-performance terminal emulator in Rust.
 
 ---
 
@@ -43,6 +43,21 @@ The TermiEmu documentation consists of **2,900+ lines** across **5 documents**, 
 - Step-by-step prototype
 - Code examples for all components
 - Development workflow
+
+#### **Plan Development Roadmap**
+→ Review [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) (60 min read)
+- Executive summary and repository analysis
+- 55+ detailed user stories (Categories A-P)
+- Dependency graph and critical path
+- Phased roadmap from Pre-Alpha to v1.0
+- Risk register and mitigation strategies
+- Success metrics and quality gates
+
+→ Quick Start [ROADMAP_QUICK_REFERENCE.md](./ROADMAP_QUICK_REFERENCE.md) (10 min read)
+- TL;DR summary
+- Critical path and priorities
+- Phase breakdown
+- Quick start for developers
 
 ---
 
@@ -273,8 +288,15 @@ The TermiEmu documentation consists of **2,900+ lines** across **5 documents**, 
 
 ### Path 4: "I Want to Contribute"
 1. [README.md](./README.md) - Project context
-2. [GETTING_STARTED.md](./GETTING_STARTED.md) - Setup and first contribution
-3. [GUI_UX_DESIGN.md](./GUI_UX_DESIGN.md) - Understand implementation roadmap
+2. [ROADMAP_QUICK_REFERENCE.md](./ROADMAP_QUICK_REFERENCE.md) - See what needs doing
+3. [GETTING_STARTED.md](./GETTING_STARTED.md) - Setup and first contribution
+4. [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) - Find a user story to work on
+
+### Path 5: "I'm Planning the Project"
+1. [PRODUCTION_ROADMAP.md](./PRODUCTION_ROADMAP.md) - Complete roadmap
+2. [ROADMAP_QUICK_REFERENCE.md](./ROADMAP_QUICK_REFERENCE.md) - Quick priorities
+3. [GAP_ANALYSIS.md](./GAP_ANALYSIS.md) - Competitive positioning
+4. [RECOMMENDATIONS.md](./RECOMMENDATIONS.md) - Feature prioritization
 
 ---
 
@@ -282,12 +304,23 @@ The TermiEmu documentation consists of **2,900+ lines** across **5 documents**, 
 
 | Document | Lines | Size | Read Time | Purpose |
 |----------|-------|------|-----------|---------|
-| README.md | 47 | 2.1K | 2 min | Overview |
-| DESIGN_SUMMARY.md | 204 | 7.1K | 10 min | Executive summary |
+| README.md | 61 | 2.6K | 2 min | Overview |
+| DESIGN_SUMMARY.md | 205 | 7.2K | 10 min | Executive summary |
 | GUI_UX_DESIGN.md | 1,464 | 48K | 45 min | Complete spec |
-| ARCHITECTURE.md | 529 | 45K | 30 min | Technical architecture |
-| GETTING_STARTED.md | 394 | 16K | 20 min | Developer guide |
-| **TOTAL** | **2,638** | **118K** | **~2 hours** | **Complete blueprint** |
+| ARCHITECTURE.md | 530 | 45K | 30 min | Technical architecture |
+| GETTING_STARTED.md | 672 | 22K | 20 min | Developer guide |
+| **PRODUCTION_ROADMAP.md** | **2,871** | **98K** | **60 min** | **Complete roadmap** |
+| **ROADMAP_QUICK_REFERENCE.md** | **354** | **11K** | **10 min** | **Quick start guide** |
+| **TOTAL** | **6,157** | **234K** | **~3 hours** | **Complete blueprint** |
+
+### Supplementary Documentation
+| Document | Lines | Purpose |
+|----------|-------|---------|
+| GAP_ANALYSIS.md | 729 | Competitive analysis |
+| FEATURE_MATRIX.md | 37 | Feature comparison |
+| RECOMMENDATIONS.md | 492 | Prioritized features |
+| STANDARDS_REFERENCE.md | 386 | Terminal standards |
+| And more... | | Market research, innovation |
 
 ---
 
