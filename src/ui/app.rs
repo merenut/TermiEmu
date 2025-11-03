@@ -93,12 +93,12 @@ impl TermiEmuApp {
 
     /// Subscribe to events
     pub fn subscription(&self) -> Subscription<Message> {
-        iced::event::listen().map(|event| {
+        iced::event::listen().filter_map(|event| {
             if let Event::Keyboard(kbd_event) = event {
-                Message::KeyPressed(kbd_event)
+                Some(Message::KeyPressed(kbd_event))
             } else {
                 // Ignore other events for now
-                Message::TerminalOutput(Vec::new())
+                None
             }
         })
     }
