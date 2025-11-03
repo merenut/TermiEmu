@@ -27,7 +27,7 @@ bitflags! {
 }
 
 /// A single cell in the terminal grid
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Cell {
     /// The character in this cell
     pub c: char,
@@ -37,6 +37,8 @@ pub struct Cell {
     pub bg: Color,
     /// Text attributes (bold, italic, etc.)
     pub flags: CellFlags,
+    /// Hyperlink URL (if this cell is part of a hyperlink)
+    pub hyperlink: Option<String>,
 }
 
 impl Default for Cell {
@@ -46,6 +48,7 @@ impl Default for Cell {
             fg: Color::default(),
             bg: Color::Named(super::color::NamedColor::Background),
             flags: CellFlags::empty(),
+            hyperlink: None,
         }
     }
 }
@@ -58,7 +61,22 @@ impl Cell {
 
     /// Create a new cell with character and colors
     pub fn with_colors(c: char, fg: Color, bg: Color) -> Self {
-        Self { c, fg, bg, flags: CellFlags::empty() }
+        Self { c, fg, bg, flags: CellFlags::empty(), hyperlink: None }
+    }
+
+    /// Set the hyperlink URL for this cell
+    pub fn set_hyperlink(&mut self, url: Option<String>) {
+        self.hyperlink = url;
+    }
+
+    /// Check if this cell has a hyperlink
+    pub fn has_hyperlink(&self) -> bool {
+        self.hyperlink.is_some()
+    }
+
+    /// Get the hyperlink URL
+    pub fn get_hyperlink(&self) -> Option<&str> {
+        self.hyperlink.as_deref()
     }
 
     /// Check if this cell is empty (contains only whitespace)

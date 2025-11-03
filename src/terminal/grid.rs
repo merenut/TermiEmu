@@ -48,6 +48,11 @@ impl Grid {
         self.scrollback.len()
     }
 
+    /// Get a reference to the scrollback buffer
+    pub fn scrollback(&self) -> &VecDeque<Vec<Cell>> {
+        &self.scrollback
+    }
+
     /// Get a cell at the given position
     ///
     /// Returns None if the position is out of bounds
@@ -115,7 +120,7 @@ impl Grid {
             let mut row = Vec::with_capacity(self.cols);
             for col in 0..self.cols {
                 let index = col;
-                row.push(self.cells[index]);
+                row.push(self.cells[index].clone());
             }
 
             // Add to scrollback (limit size)
@@ -126,7 +131,9 @@ impl Grid {
 
             // Shift all rows up
             let cells_len = self.cells.len();
-            self.cells.copy_within(self.cols..cells_len, 0);
+            for i in 0..(cells_len - self.cols) {
+                self.cells[i] = self.cells[i + self.cols].clone();
+            }
 
             // Clear the last row
             let last_row_start = (self.rows - 1) * self.cols;
@@ -141,7 +148,9 @@ impl Grid {
         for _ in 0..n {
             // Shift all rows down
             let last_row_start = (self.rows - 1) * self.cols;
-            self.cells.copy_within(0..last_row_start, self.cols);
+            for i in (self.cols..=last_row_start).rev() {
+                self.cells[i] = self.cells[i - self.cols].clone();
+            }
 
             // Clear the first row
             for i in 0..self.cols {
@@ -166,7 +175,7 @@ impl Grid {
             for col in 0..min_cols {
                 let old_index = row * self.cols + col;
                 let new_index = row * cols + col;
-                new_cells[new_index] = self.cells[old_index];
+                new_cells[new_index] = self.cells[old_index].clone();
             }
         }
 
