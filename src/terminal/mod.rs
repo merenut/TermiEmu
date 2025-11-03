@@ -16,6 +16,7 @@ pub mod cursor;
 pub mod grid;
 pub mod modes;
 pub mod parser;
+pub mod selection;
 
 pub use cell::{Cell, CellFlags};
 pub use color::{Color, NamedColor};
@@ -23,3 +24,4 @@ pub use cursor::{Cursor, CursorStyle};
 pub use grid::Grid;
 pub use modes::TerminalModes;
 pub use parser::Parser;
+pub use selection::{Point, Selection};

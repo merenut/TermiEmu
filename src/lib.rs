@@ -8,6 +8,7 @@
 //!
 //! # Modules
 //!
+//! - `clipboard`: Clipboard integration for copy/paste operations
 //! - `config`: Configuration and theme system
 //! - `error`: Error types and error handling utilities
 //! - `logging`: Logging infrastructure using `tracing`
@@ -15,6 +16,7 @@
 //! - `terminal`: Terminal emulation core (grid, parser, cursor, colors, modes)
 //! - `ui`: User interface (Iced GUI application)
 
+pub mod clipboard;
 pub mod config;
 pub mod error;
 pub mod logging;
