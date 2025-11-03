@@ -93,7 +93,7 @@ impl TermiEmuApp {
 
     /// Subscribe to events
     pub fn subscription(&self) -> Subscription<Message> {
-        iced::event::listen().filter_map(|event| {
+        iced::event::listen_with(|event, _status, _id| {
             if let Event::Keyboard(kbd_event) = event {
                 Some(Message::KeyPressed(kbd_event))
             } else {
