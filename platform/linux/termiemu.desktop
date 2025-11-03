@@ -1,0 +1,17 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=TermiEmu
+GenericName=Terminal Emulator
+Comment=A modern, high-performance terminal emulator
+Exec=termiemu
+Icon=termiemu
+Terminal=false
+Categories=System;TerminalEmulator;Utility;
+Keywords=terminal;emulator;shell;console;tty;
+StartupNotify=true
+StartupWMClass=termiemu
+
+[Desktop Action NewWindow]
+Name=New Window
+Exec=termiemu
