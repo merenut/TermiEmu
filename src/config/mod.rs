@@ -263,7 +263,7 @@ impl Config {
     pub fn validate(&self) -> Result<()> {
         // Validate font size
         if self.font.size <= 0.0 || self.font.size > 72.0 {
-            anyhow::bail!("Font size must be between 0 and 72, got {}", self.font.size);
+            anyhow::bail!("Font size must be greater than 0 and up to 72, got {}", self.font.size);
         }
 
         // Validate opacity
