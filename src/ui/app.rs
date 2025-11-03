@@ -115,8 +115,16 @@ impl TermiEmuApp {
         for row in 0..grid.rows() {
             for col in 0..grid.cols() {
                 if let Some(cell) = grid.get(col, row) {
-                    if col == cursor.col && row == cursor.row {
-                        content.push('█'); // Show cursor as block
+                    if col == cursor.col && row == cursor.row && cursor.visible {
+                        // Show cursor: use block for empty space, preserve char for content
+                        // Note: proper cursor styling will be done with custom widget in Phase 1
+                        if cell.c == ' ' {
+                            content.push('█');
+                        } else {
+                            // For non-empty cells, show the character
+                            // (inverse video would be applied in a proper renderer)
+                            content.push(cell.c);
+                        }
                     } else {
                         content.push(cell.c);
                     }
