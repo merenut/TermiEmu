@@ -172,14 +172,13 @@ impl Pty {
     ///
     /// Returns an error if the PTY has not been spawned or read fails
     pub fn read(&mut self, buf: &mut [u8]) -> Result<usize> {
-        let reader = self
+        let mut reader = self
             .master
             .as_mut()
             .ok_or_else(|| TermError::invalid_state("PTY not spawned"))?
             .try_clone_reader()
             .map_err(|e| TermError::pty(format!("Failed to clone reader: {}", e)))?;
 
-        let mut reader = reader;
         reader.read(buf).context("Failed to read from PTY")
     }
 
