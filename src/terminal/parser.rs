@@ -3,7 +3,7 @@
 //! This module integrates the `vte` crate to parse ANSI escape sequences
 //! and dispatch them to the terminal emulator.
 
-use super::{cell::CellFlags, color::Color, cursor::Cursor, grid::Grid};
+use super::{cell::CellFlags, color::Color, cursor::Cursor, grid::Grid, modes::TerminalModes};
 use tracing::{debug, trace};
 use vte::{Params, Perform};
 
@@ -17,11 +17,33 @@ pub struct Parser {
 
 /// Internal terminal state for parser
 struct TerminalState {
-    grid: Grid,
+    /// Primary (normal) grid
+    primary_grid: Grid,
+    /// Alternate screen grid (for full-screen apps like vim)
+    alternate_grid: Grid,
+    /// Currently active grid
+    active_grid: GridType,
+    /// Cursor position
     cursor: Cursor,
+    /// Saved cursor position for primary screen
+    saved_cursor_primary: Cursor,
+    /// Saved cursor position for alternate screen
+    saved_cursor_alternate: Cursor,
+    /// Current foreground color
     current_fg: Color,
+    /// Current background color
     current_bg: Color,
+    /// Current cell flags (bold, italic, etc.)
     current_flags: CellFlags,
+    /// Terminal modes
+    modes: TerminalModes,
+}
+
+/// Enum to track which grid is active
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum GridType {
+    Primary,
+    Alternate,
 }
 
 impl Parser {
@@ -30,11 +52,16 @@ impl Parser {
         Self {
             parser: vte::Parser::new(),
             terminal: TerminalState {
-                grid: Grid::new(cols, rows, 10_000),
+                primary_grid: Grid::new(cols, rows, 10_000),
+                alternate_grid: Grid::new(cols, rows, 0), // No scrollback for alt screen
+                active_grid: GridType::Primary,
                 cursor: Cursor::default(),
+                saved_cursor_primary: Cursor::default(),
+                saved_cursor_alternate: Cursor::default(),
                 current_fg: Color::default(),
                 current_bg: Color::Named(super::color::NamedColor::Background),
                 current_flags: CellFlags::empty(),
+                modes: TerminalModes::new(),
             },
         }
     }
@@ -50,14 +77,20 @@ impl Parser {
         self.parser.advance(&mut self.terminal, bytes);
     }
 
-    /// Get a reference to the grid
+    /// Get a reference to the active grid
     pub fn grid(&self) -> &Grid {
-        &self.terminal.grid
+        match self.terminal.active_grid {
+            GridType::Primary => &self.terminal.primary_grid,
+            GridType::Alternate => &self.terminal.alternate_grid,
+        }
     }
 
-    /// Get a mutable reference to the grid
+    /// Get a mutable reference to the active grid
     pub fn grid_mut(&mut self) -> &mut Grid {
-        &mut self.terminal.grid
+        match self.terminal.active_grid {
+            GridType::Primary => &mut self.terminal.primary_grid,
+            GridType::Alternate => &mut self.terminal.alternate_grid,
+        }
     }
 
     /// Get a reference to the cursor
@@ -69,6 +102,56 @@ impl Parser {
     pub fn cursor_mut(&mut self) -> &mut Cursor {
         &mut self.terminal.cursor
     }
+
+    /// Get terminal modes
+    pub fn modes(&self) -> &TerminalModes {
+        &self.terminal.modes
+    }
+
+    /// Check if alternate screen is active
+    pub fn is_alt_screen(&self) -> bool {
+        self.terminal.active_grid == GridType::Alternate
+    }
+}
+
+impl TerminalState {
+    /// Get the active grid
+    fn grid(&mut self) -> &mut Grid {
+        match self.active_grid {
+            GridType::Primary => &mut self.primary_grid,
+            GridType::Alternate => &mut self.alternate_grid,
+        }
+    }
+
+    /// Switch to alternate screen
+    fn use_alternate_screen(&mut self) {
+        if self.active_grid == GridType::Primary {
+            // Save current cursor position
+            self.saved_cursor_primary = self.cursor.clone();
+            // Switch to alternate screen
+            self.active_grid = GridType::Alternate;
+            // Restore alternate screen cursor
+            self.cursor = self.saved_cursor_alternate.clone();
+            // Set mode flag
+            self.modes.insert(TerminalModes::ALT_SCREEN);
+            debug!("Switched to alternate screen");
+        }
+    }
+
+    /// Switch to primary screen
+    fn use_primary_screen(&mut self) {
+        if self.active_grid == GridType::Alternate {
+            // Save alternate cursor position
+            self.saved_cursor_alternate = self.cursor.clone();
+            // Switch to primary screen
+            self.active_grid = GridType::Primary;
+            // Restore primary screen cursor
+            self.cursor = self.saved_cursor_primary.clone();
+            // Clear mode flag
+            self.modes.remove(TerminalModes::ALT_SCREEN);
+            debug!("Switched to primary screen");
+        }
+    }
 }
 
 impl Perform for TerminalState {
@@ -77,16 +160,23 @@ impl Perform for TerminalState {
 
         // Get the current cursor position
         let col = self.cursor.col;
+        let cols = self.grid().cols();
+        let rows = self.grid().rows();
 
         // Check if we need to wrap to the next line
-        if col >= self.grid.cols() {
-            self.cursor.col = 0;
-            self.cursor.row += 1;
+        if col >= cols {
+            if self.modes.is_auto_wrap() {
+                self.cursor.col = 0;
+                self.cursor.row += 1;
 
-            // Scroll if we're at the bottom
-            if self.cursor.row >= self.grid.rows() {
-                self.grid.scroll_up(1);
-                self.cursor.row = self.grid.rows() - 1;
+                // Scroll if we're at the bottom
+                if self.cursor.row >= rows {
+                    self.grid().scroll_up(1);
+                    self.cursor.row = rows - 1;
+                }
+            } else {
+                // No wrap - just stay at the end
+                self.cursor.col = cols - 1;
             }
         }
 
@@ -94,8 +184,12 @@ impl Perform for TerminalState {
         let mut cell = super::cell::Cell::with_colors(c, self.current_fg, self.current_bg);
         cell.flags = self.current_flags;
 
+        // Store cursor position before borrowing grid
+        let cursor_col = self.cursor.col;
+        let cursor_row = self.cursor.row;
+        
         // Set the cell in the grid
-        self.grid.set(self.cursor.col, self.cursor.row, cell);
+        self.grid().set(cursor_col, cursor_row, cell);
 
         // Advance cursor
         self.cursor.col += 1;
@@ -107,10 +201,11 @@ impl Perform for TerminalState {
         match byte {
             // Line feed
             0x0A => {
+                let rows = self.grid().rows();
                 self.cursor.row += 1;
-                if self.cursor.row >= self.grid.rows() {
-                    self.grid.scroll_up(1);
-                    self.cursor.row = self.grid.rows() - 1;
+                if self.cursor.row >= rows {
+                    self.grid().scroll_up(1);
+                    self.cursor.row = rows - 1;
                 }
             }
             // Carriage return
@@ -125,9 +220,10 @@ impl Perform for TerminalState {
             }
             // Tab
             0x09 => {
+                let cols = self.grid().cols();
                 self.cursor.col = (self.cursor.col + 8) & !7;
-                if self.cursor.col >= self.grid.cols() {
-                    self.cursor.col = self.grid.cols() - 1;
+                if self.cursor.col >= cols {
+                    self.cursor.col = cols - 1;
                 }
             }
             _ => {
@@ -157,11 +253,17 @@ impl Perform for TerminalState {
     fn csi_dispatch(
         &mut self,
         params: &Params,
-        _intermediates: &[u8],
+        intermediates: &[u8],
         _ignore: bool,
         action: char,
     ) {
         trace!("CSI dispatch: {:?} {}", params, action);
+
+        // Handle private mode sequences (DEC codes)
+        if !intermediates.is_empty() && intermediates[0] == b'?' {
+            self.handle_decset(params, action);
+            return;
+        }
 
         match action {
             // Cursor movement
@@ -173,12 +275,14 @@ impl Perform for TerminalState {
             'B' => {
                 // Cursor Down
                 let n = params.iter().next().and_then(|p| p.first()).copied().unwrap_or(1) as usize;
-                self.cursor.row = (self.cursor.row + n).min(self.grid.rows() - 1);
+                let max_row = self.grid().rows() - 1;
+                self.cursor.row = (self.cursor.row + n).min(max_row);
             }
             'C' => {
                 // Cursor Forward
                 let n = params.iter().next().and_then(|p| p.first()).copied().unwrap_or(1) as usize;
-                self.cursor.col = (self.cursor.col + n).min(self.grid.cols() - 1);
+                let max_col = self.grid().cols() - 1;
+                self.cursor.col = (self.cursor.col + n).min(max_col);
             }
             'D' => {
                 // Cursor Back
@@ -194,28 +298,33 @@ impl Perform for TerminalState {
                 let col =
                     iter.next().and_then(|p| p.first()).copied().unwrap_or(1).saturating_sub(1)
                         as usize;
-                self.cursor.goto(col.min(self.grid.cols() - 1), row.min(self.grid.rows() - 1));
+                let max_col = self.grid().cols() - 1;
+                let max_row = self.grid().rows() - 1;
+                self.cursor.goto(col.min(max_col), row.min(max_row));
             }
             'J' => {
                 // Erase in Display
                 let n = params.iter().next().and_then(|p| p.first()).copied().unwrap_or(0);
+                let cursor_col = self.cursor.col;
+                let cursor_row = self.cursor.row;
+                let rows = self.grid().rows();
                 match n {
                     0 => {
                         // Clear from cursor to end of screen
-                        self.grid.clear_to_end_of_row(self.cursor.col, self.cursor.row);
-                        for row in self.cursor.row + 1..self.grid.rows() {
-                            self.grid.clear_row(row);
+                        self.grid().clear_to_end_of_row(cursor_col, cursor_row);
+                        for row in cursor_row + 1..rows {
+                            self.grid().clear_row(row);
                         }
                     }
                     1 => {
                         // Clear from cursor to beginning of screen
-                        for row in 0..self.cursor.row {
-                            self.grid.clear_row(row);
+                        for row in 0..cursor_row {
+                            self.grid().clear_row(row);
                         }
                     }
                     2 => {
                         // Clear entire screen
-                        self.grid.clear();
+                        self.grid().clear();
                     }
                     _ => {}
                 }
@@ -223,22 +332,24 @@ impl Perform for TerminalState {
             'K' => {
                 // Erase in Line
                 let n = params.iter().next().and_then(|p| p.first()).copied().unwrap_or(0);
+                let cursor_col = self.cursor.col;
+                let cursor_row = self.cursor.row;
                 match n {
                     0 => {
                         // Clear from cursor to end of line
-                        self.grid.clear_to_end_of_row(self.cursor.col, self.cursor.row);
+                        self.grid().clear_to_end_of_row(cursor_col, cursor_row);
                     }
                     1 => {
                         // Clear from cursor to beginning of line
-                        for col in 0..=self.cursor.col {
-                            if let Some(cell) = self.grid.get_mut(col, self.cursor.row) {
+                        for col in 0..=cursor_col {
+                            if let Some(cell) = self.grid().get_mut(col, cursor_row) {
                                 cell.reset();
                             }
                         }
                     }
                     2 => {
                         // Clear entire line
-                        self.grid.clear_row(self.cursor.row);
+                        self.grid().clear_row(cursor_row);
                     }
                     _ => {}
                 }
@@ -246,6 +357,10 @@ impl Perform for TerminalState {
             'm' => {
                 // SGR - Select Graphic Rendition (colors and attributes)
                 self.handle_sgr(params);
+            }
+            'h' | 'l' => {
+                // Set/Reset mode (non-private)
+                self.handle_mode(params, action == 'h');
             }
             _ => {
                 debug!("Unhandled CSI: {:?} {}", params, action);
@@ -340,6 +455,186 @@ impl TerminalState {
                     49 => self.current_bg = Color::Named(super::color::NamedColor::Background), // Default background
                     _ => {
                         debug!("Unhandled SGR parameter: {}", n);
+                    }
+                }
+            }
+        }
+    }
+
+    /// Handle DECSET/DECRST (DEC private mode set/reset)
+    fn handle_decset(&mut self, params: &Params, action: char) {
+        let is_set = action == 'h';
+        
+        for param in params.iter() {
+            if let Some(&n) = param.first() {
+                match n {
+                    1 => {
+                        // DECCKM - Application Cursor Keys
+                        if is_set {
+                            self.modes.insert(TerminalModes::CURSOR_KEYS_APP);
+                            debug!("Application cursor keys enabled");
+                        } else {
+                            self.modes.remove(TerminalModes::CURSOR_KEYS_APP);
+                            debug!("Application cursor keys disabled");
+                        }
+                    }
+                    6 => {
+                        // DECOM - Origin Mode
+                        if is_set {
+                            self.modes.insert(TerminalModes::ORIGIN_MODE);
+                            debug!("Origin mode enabled");
+                        } else {
+                            self.modes.remove(TerminalModes::ORIGIN_MODE);
+                            debug!("Origin mode disabled");
+                        }
+                    }
+                    7 => {
+                        // DECAWM - Auto-wrap Mode
+                        if is_set {
+                            self.modes.insert(TerminalModes::AUTO_WRAP);
+                            debug!("Auto-wrap enabled");
+                        } else {
+                            self.modes.remove(TerminalModes::AUTO_WRAP);
+                            debug!("Auto-wrap disabled");
+                        }
+                    }
+                    25 => {
+                        // DECTCEM - Cursor Visibility
+                        if is_set {
+                            self.modes.insert(TerminalModes::SHOW_CURSOR);
+                            self.cursor.visible = true;
+                            debug!("Cursor visible");
+                        } else {
+                            self.modes.remove(TerminalModes::SHOW_CURSOR);
+                            self.cursor.visible = false;
+                            debug!("Cursor hidden");
+                        }
+                    }
+                    47 | 1047 => {
+                        // Alternate screen buffer (without clearing)
+                        if is_set {
+                            self.use_alternate_screen();
+                        } else {
+                            self.use_primary_screen();
+                        }
+                    }
+                    1048 => {
+                        // Save/Restore cursor
+                        if is_set {
+                            // Save cursor
+                            match self.active_grid {
+                                GridType::Primary => {
+                                    self.saved_cursor_primary = self.cursor.clone();
+                                }
+                                GridType::Alternate => {
+                                    self.saved_cursor_alternate = self.cursor.clone();
+                                }
+                            }
+                            debug!("Cursor saved");
+                        } else {
+                            // Restore cursor
+                            self.cursor = match self.active_grid {
+                                GridType::Primary => self.saved_cursor_primary.clone(),
+                                GridType::Alternate => self.saved_cursor_alternate.clone(),
+                            };
+                            debug!("Cursor restored");
+                        }
+                    }
+                    1049 => {
+                        // Alternate screen buffer with cursor save/restore
+                        if is_set {
+                            // Save cursor and switch to alternate screen
+                            self.saved_cursor_primary = self.cursor.clone();
+                            self.use_alternate_screen();
+                            self.grid().clear();
+                        } else {
+                            // Switch to primary screen and restore cursor
+                            self.use_primary_screen();
+                            self.cursor = self.saved_cursor_primary.clone();
+                        }
+                    }
+                    1004 => {
+                        // Focus reporting
+                        if is_set {
+                            self.modes.insert(TerminalModes::FOCUS_REPORT);
+                            debug!("Focus reporting enabled");
+                        } else {
+                            self.modes.remove(TerminalModes::FOCUS_REPORT);
+                            debug!("Focus reporting disabled");
+                        }
+                    }
+                    1000 => {
+                        // X10 mouse mode
+                        if is_set {
+                            self.modes.set_mouse_mode(super::modes::MouseMode::X10);
+                            debug!("Mouse X10 mode enabled");
+                        } else {
+                            self.modes.set_mouse_mode(super::modes::MouseMode::None);
+                            debug!("Mouse mode disabled");
+                        }
+                    }
+                    1002 => {
+                        // Button event tracking
+                        if is_set {
+                            self.modes.set_mouse_mode(super::modes::MouseMode::ButtonEvent);
+                            debug!("Mouse button event tracking enabled");
+                        } else {
+                            self.modes.set_mouse_mode(super::modes::MouseMode::None);
+                        }
+                    }
+                    1003 => {
+                        // Any event tracking
+                        if is_set {
+                            self.modes.set_mouse_mode(super::modes::MouseMode::AnyEvent);
+                            debug!("Mouse any event tracking enabled");
+                        } else {
+                            self.modes.set_mouse_mode(super::modes::MouseMode::None);
+                        }
+                    }
+                    1006 => {
+                        // SGR mouse mode
+                        if is_set {
+                            self.modes.set_mouse_mode(super::modes::MouseMode::Sgr);
+                            debug!("Mouse SGR mode enabled");
+                        } else {
+                            self.modes.set_mouse_mode(super::modes::MouseMode::None);
+                        }
+                    }
+                    2004 => {
+                        // Bracketed paste mode
+                        if is_set {
+                            self.modes.insert(TerminalModes::BRACKETED_PASTE);
+                            debug!("Bracketed paste enabled");
+                        } else {
+                            self.modes.remove(TerminalModes::BRACKETED_PASTE);
+                            debug!("Bracketed paste disabled");
+                        }
+                    }
+                    _ => {
+                        debug!("Unhandled DECSET/DECRST: {} ({})", n, if is_set { "set" } else { "reset" });
+                    }
+                }
+            }
+        }
+    }
+
+    /// Handle standard mode set/reset (SM/RM)
+    fn handle_mode(&mut self, params: &Params, is_set: bool) {
+        for param in params.iter() {
+            if let Some(&n) = param.first() {
+                match n {
+                    4 => {
+                        // IRM - Insert/Replace Mode
+                        if is_set {
+                            self.modes.insert(TerminalModes::INSERT_MODE);
+                            debug!("Insert mode enabled");
+                        } else {
+                            self.modes.remove(TerminalModes::INSERT_MODE);
+                            debug!("Insert mode disabled");
+                        }
+                    }
+                    _ => {
+                        debug!("Unhandled mode: {} ({})", n, if is_set { "set" } else { "reset" });
                     }
                 }
             }

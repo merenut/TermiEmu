@@ -1,0 +1,63 @@
+# TermiEmu Configuration File
+# This is an example configuration file showing all available options
+# Default location:
+#   Linux/macOS: ~/.config/termiemu/config.toml
+#   Windows: %APPDATA%\termiemu\config.toml
+
+# Font configuration
+[font]
+family = "JetBrains Mono"
+size = 12.0
+ligatures = true
+fallback = [
+    "Fira Code",
+    "Cascadia Code",
+    "Menlo",
+    "Monaco",
+    "Consolas",
+    "monospace"
+]
+
+# Theme name (references a theme file in ~/.config/termiemu/themes/)
+theme = "catppuccin-mocha"
+
+# Terminal configuration
+[terminal]
+# Number of columns (0 = auto-detect from window size)
+cols = 0
+# Number of rows (0 = auto-detect from window size)
+rows = 0
+# Shell command to run (empty = auto-detect from $SHELL)
+shell = ""
+# Working directory (empty = home directory)
+working_directory = ""
+
+# Key bindings
+[keybindings]
+copy = "Ctrl+Shift+C"
+paste = "Ctrl+Shift+V"
+new_tab = "Ctrl+Shift+T"
+close_tab = "Ctrl+Shift+W"
+next_tab = "Ctrl+Tab"
+prev_tab = "Ctrl+Shift+Tab"
+search = "Ctrl+Shift+F"
+command_palette = "Ctrl+Shift+P"
+
+# Window configuration
+[window]
+# Window dimensions (0 = use default)
+width = 0
+height = 0
+# Opacity (0.0 - 1.0, where 1.0 = fully opaque)
+opacity = 1.0
+# Enable blur effect (platform-dependent)
+blur = false
+# Padding in pixels
+padding = 4
+
+# Scrollback configuration
+[scrollback]
+# Maximum scrollback lines
+max_lines = 10000
+# Scroll speed (lines per wheel event)
+scroll_speed = 3
