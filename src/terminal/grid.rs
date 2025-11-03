@@ -166,7 +166,7 @@ impl Grid {
             for col in 0..min_cols {
                 let old_index = row * self.cols + col;
                 let new_index = row * cols + col;
-                new_cells[new_index] = self.cells[old_index].clone();
+                new_cells[new_index] = self.cells[old_index];
             }
         }
 

@@ -1,20 +1,15 @@
 //! Cursor state and management
 
 /// Cursor style
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum CursorStyle {
     /// Block cursor
+    #[default]
     Block,
     /// Underline cursor
     Underline,
     /// Bar/beam cursor
     Bar,
-}
-
-impl Default for CursorStyle {
-    fn default() -> Self {
-        CursorStyle::Block
-    }
 }
 
 /// Terminal cursor state

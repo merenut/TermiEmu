@@ -154,7 +154,13 @@ impl Perform for TerminalState {
         // Examples: window title, color changes, hyperlinks
     }
 
-    fn csi_dispatch(&mut self, params: &Params, _intermediates: &[u8], _ignore: bool, action: char) {
+    fn csi_dispatch(
+        &mut self,
+        params: &Params,
+        _intermediates: &[u8],
+        _ignore: bool,
+        action: char,
+    ) {
         trace!("CSI dispatch: {:?} {}", params, action);
 
         match action {
@@ -182,18 +188,12 @@ impl Perform for TerminalState {
             'H' | 'f' => {
                 // Cursor Position
                 let mut iter = params.iter();
-                let row = iter
-                    .next()
-                    .and_then(|p| p.first())
-                    .copied()
-                    .unwrap_or(1)
-                    .saturating_sub(1) as usize;
-                let col = iter
-                    .next()
-                    .and_then(|p| p.first())
-                    .copied()
-                    .unwrap_or(1)
-                    .saturating_sub(1) as usize;
+                let row =
+                    iter.next().and_then(|p| p.first()).copied().unwrap_or(1).saturating_sub(1)
+                        as usize;
+                let col =
+                    iter.next().and_then(|p| p.first()).copied().unwrap_or(1).saturating_sub(1)
+                        as usize;
                 self.cursor.goto(col.min(self.grid.cols() - 1), row.min(self.grid.rows() - 1));
             }
             'J' => {
@@ -316,9 +316,15 @@ impl TerminalState {
                                 }
                                 2 => {
                                     // RGB color
-                                    let r = iter.next().and_then(|p| p.first()).copied().unwrap_or(0) as u8;
-                                    let g = iter.next().and_then(|p| p.first()).copied().unwrap_or(0) as u8;
-                                    let b = iter.next().and_then(|p| p.first()).copied().unwrap_or(0) as u8;
+                                    let r =
+                                        iter.next().and_then(|p| p.first()).copied().unwrap_or(0)
+                                            as u8;
+                                    let g =
+                                        iter.next().and_then(|p| p.first()).copied().unwrap_or(0)
+                                            as u8;
+                                    let b =
+                                        iter.next().and_then(|p| p.first()).copied().unwrap_or(0)
+                                            as u8;
                                     let color = Color::Rgb(r, g, b);
                                     if is_fg {
                                         self.current_fg = color;
