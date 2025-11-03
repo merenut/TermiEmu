@@ -141,11 +141,10 @@ fn test_pty_kill_cleanup() {
 #[test]
 fn test_pty_unix_shell_detection() {
     let config = PtyConfig::default();
-    let pty = Pty::new(config).expect("Failed to create PTY");
+    let mut pty = Pty::new(config).expect("Failed to create PTY");
 
     // On Unix, we should detect a valid shell
     // This is tested indirectly through spawn, which will fail if shell detection fails
-    let mut pty = pty;
     assert!(pty.spawn().is_ok());
     pty.kill().ok();
 }
