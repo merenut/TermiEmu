@@ -27,6 +27,7 @@ serde = { version = "1.0", features = ["derive"] }
 toml = "0.8"
 dirs = "5.0"
 arboard = "3.4"
+regex = "1.11"
 
 [dev-dependencies]
 criterion = "0.5.1"
@@ -44,6 +45,10 @@ path = "src/main.rs"
 
 [[bench]]
 name = "basic_benchmark"
+harness = false
+
+[[bench]]
+name = "phase2_benchmarks"
 harness = false
 
 [profile.release]

@@ -37,6 +37,8 @@ struct TerminalState {
     current_flags: CellFlags,
     /// Terminal modes
     modes: TerminalModes,
+    /// Current hyperlink URL (set by OSC 8)
+    current_hyperlink: Option<String>,
 }
 
 /// Enum to track which grid is active
@@ -62,6 +64,7 @@ impl Parser {
                 current_bg: Color::Named(super::color::NamedColor::Background),
                 current_flags: CellFlags::empty(),
                 modes: TerminalModes::new(),
+                current_hyperlink: None,
             },
         }
     }
@@ -183,6 +186,7 @@ impl Perform for TerminalState {
         // Create a cell with the current attributes
         let mut cell = super::cell::Cell::with_colors(c, self.current_fg, self.current_bg);
         cell.flags = self.current_flags;
+        cell.hyperlink = self.current_hyperlink.clone();
 
         // Store cursor position before borrowing grid
         let cursor_col = self.cursor.col;
@@ -246,8 +250,56 @@ impl Perform for TerminalState {
 
     fn osc_dispatch(&mut self, params: &[&[u8]], _bell_terminated: bool) {
         trace!("OSC dispatch: {:?}", params);
-        // OSC sequences (Operating System Commands) will be handled here
-        // Examples: window title, color changes, hyperlinks
+        
+        // OSC sequences format: OSC Ps ; Pt ST
+        // Where Ps is a numeric parameter and Pt is text parameter
+        
+        if params.is_empty() {
+            return;
+        }
+        
+        // Parse the command number (Ps)
+        let cmd = String::from_utf8_lossy(params[0]);
+        
+        match cmd.as_ref() {
+            "8" => {
+                // OSC 8 ; params ; URI ST
+                // Hyperlink support: OSC 8 ; params ; URI ST
+                // To start a hyperlink: OSC 8 ; ; https://example.com ST
+                // To end a hyperlink: OSC 8 ; ; ST
+                
+                if params.len() >= 3 {
+                    // params[1] contains optional parameters (id=..., etc.)
+                    // params[2] contains the URI
+                    let uri = String::from_utf8_lossy(params[2]);
+                    
+                    if uri.is_empty() {
+                        // Empty URI means end the hyperlink
+                        self.current_hyperlink = None;
+                        debug!("Hyperlink ended");
+                    } else {
+                        // Set the current hyperlink
+                        self.current_hyperlink = Some(uri.to_string());
+                        debug!("Hyperlink started: {}", uri);
+                    }
+                } else if params.len() == 2 {
+                    // Only separator, no URI - end hyperlink
+                    self.current_hyperlink = None;
+                    debug!("Hyperlink ended (short form)");
+                }
+            }
+            "0" | "2" => {
+                // Window title
+                if params.len() >= 2 {
+                    let title = String::from_utf8_lossy(params[1]);
+                    debug!("Window title set: {}", title);
+                    // Title handling would go here (set window title)
+                }
+            }
+            _ => {
+                debug!("Unhandled OSC command: {}", cmd);
+            }
+        }
     }
 
     fn csi_dispatch(
