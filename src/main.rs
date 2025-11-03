@@ -20,7 +20,6 @@ fn main() -> Result<()> {
     // Run the application with proper error handling
     if let Err(e) = run() {
         error!("Application error: {:?}", e);
-        eprintln!("Error: {}", e);
         return Err(e);
     }
 
