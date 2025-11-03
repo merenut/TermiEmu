@@ -11,7 +11,9 @@
 //! - `error`: Error types and error handling utilities
 //! - `logging`: Logging infrastructure using `tracing`
 //! - `pty`: PTY (Pseudo-Terminal) integration for process management
+//! - `terminal`: Terminal emulation core (grid, parser, cursor, colors)
 
 pub mod error;
 pub mod logging;
 pub mod pty;
+pub mod terminal;
