@@ -17,5 +17,6 @@ fn main() -> iced::Result {
 
     // Run the Iced application
     iced::application(TermiEmuApp::title, TermiEmuApp::update, TermiEmuApp::view)
+        .subscription(TermiEmuApp::subscription)
         .run_with(TermiEmuApp::new)
 }
